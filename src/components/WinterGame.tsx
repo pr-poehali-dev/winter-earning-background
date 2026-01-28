@@ -155,23 +155,33 @@ const WinterGame = () => {
             </p>
           </div>
         ) : (
-          <div className="text-center space-y-6 py-8">
-            <div className="space-y-4">
-              <Icon name="Award" size={64} className="text-primary mx-auto" />
+          <div
+            className="relative text-center space-y-6 py-8 rounded-xl overflow-hidden"
+            style={{
+              backgroundImage: 'url(https://cdn.poehali.dev/projects/e2e3e1ec-61af-447a-9ddd-cd4c0b2a4b15/bucket/125585aa-b27c-4481-8d25-dfe6fca08c4e.jpg)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              minHeight: '400px',
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-black/40 backdrop-blur-sm" />
+            
+            <div className="relative z-10 space-y-4">
+              <Icon name="Award" size={64} className="text-yellow-400 mx-auto drop-shadow-lg" />
               <div>
-                <h3 className="text-2xl font-bold mb-2">Игра окончена!</h3>
-                <p className="text-4xl font-bold text-primary mb-2">{score} очков</p>
-                <p className="text-muted-foreground">
+                <h3 className="text-3xl font-bold mb-2 text-white drop-shadow-lg">Игра окончена!</h3>
+                <p className="text-5xl font-bold text-yellow-400 mb-2 drop-shadow-lg">{score} очков</p>
+                <p className="text-white/90 text-lg drop-shadow-md">
                   {score >= 200 ? '🏆 Невероятный результат!' : score >= 100 ? '🎯 Отличная работа!' : '❄️ Попробуй ещё раз!'}
                 </p>
               </div>
             </div>
 
-            <div className="flex gap-3 justify-center">
+            <div className="relative z-10 flex gap-3 justify-center">
               <Button
                 size="lg"
                 onClick={startGame}
-                className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/30"
+                className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold shadow-xl shadow-yellow-500/40 border-2 border-yellow-300"
               >
                 <Icon name="RotateCcw" size={20} className="mr-2" />
                 Играть снова
