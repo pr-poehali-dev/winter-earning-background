@@ -87,22 +87,35 @@ const WinterGame = () => {
 
       <CardContent className="p-6">
         {!gameActive && timeLeft === 30 ? (
-          <div className="text-center space-y-6 py-8">
-            <div className="space-y-3">
-              <Icon name="Snowflake" size={64} className="text-primary mx-auto animate-spin" style={{ animationDuration: '10s' }} />
-              <p className="text-lg text-muted-foreground">
+          <div
+            className="relative text-center space-y-6 py-12 rounded-xl overflow-hidden"
+            style={{
+              backgroundImage: 'url(https://cdn.poehali.dev/projects/e2e3e1ec-61af-447a-9ddd-cd4c0b2a4b15/bucket/dd9153f5-53a5-44a3-817b-5eb1e9cc0124.jpg)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              minHeight: '400px',
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-black/40 backdrop-blur-sm" />
+            
+            <div className="relative z-10 space-y-6">
+              <Icon name="Snowflake" size={80} className="text-yellow-400 mx-auto animate-spin drop-shadow-2xl" style={{ animationDuration: '10s' }} />
+              <p className="text-xl text-white font-medium drop-shadow-lg px-4">
                 Нажми на кнопку, чтобы начать игру.<br />
                 У тебя будет 30 секунд, чтобы поймать как можно больше снежинок!
               </p>
             </div>
-            <Button
-              size="lg"
-              onClick={startGame}
-              className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/30"
-            >
-              <Icon name="Play" size={20} className="mr-2" />
-              Начать игру
-            </Button>
+            
+            <div className="relative z-10">
+              <Button
+                size="lg"
+                onClick={startGame}
+                className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold shadow-xl shadow-yellow-500/40 border-2 border-yellow-300 text-lg px-8 py-6"
+              >
+                <Icon name="Play" size={24} className="mr-2" />
+                Начать игру
+              </Button>
+            </div>
           </div>
         ) : gameActive ? (
           <div className="space-y-4">
