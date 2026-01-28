@@ -93,7 +93,7 @@ const WinterGame = () => {
               backgroundImage: 'url(https://cdn.poehali.dev/projects/e2e3e1ec-61af-447a-9ddd-cd4c0b2a4b15/bucket/dd9153f5-53a5-44a3-817b-5eb1e9cc0124.jpg)',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              minHeight: '400px',
+              minHeight: '600px',
             }}
           >
             <div className="absolute inset-0 bg-black/10" />
