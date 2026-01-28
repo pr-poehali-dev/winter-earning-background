@@ -96,7 +96,6 @@ const WinterGame = () => {
               minHeight: '700px',
             }}
           >
-            <div className="absolute inset-0 bg-black/10" />
           </div>
         ) : gameActive ? (
           <div className="space-y-4">
