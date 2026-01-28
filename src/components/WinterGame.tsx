@@ -97,10 +97,6 @@ const WinterGame = () => {
             }}
           >
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-black/40 backdrop-blur-sm" />
-            
-            <div className="relative z-10 space-y-6">
-              <Icon name="Snowflake" size={80} className="text-yellow-400 mx-auto animate-spin drop-shadow-2xl" style={{ animationDuration: '10s' }} />
-            </div>
           </div>
         ) : gameActive ? (
           <div className="space-y-4">
