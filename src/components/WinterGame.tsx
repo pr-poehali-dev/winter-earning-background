@@ -100,10 +100,6 @@ const WinterGame = () => {
             
             <div className="relative z-10 space-y-6">
               <Icon name="Snowflake" size={80} className="text-yellow-400 mx-auto animate-spin drop-shadow-2xl" style={{ animationDuration: '10s' }} />
-              <p className="text-xl text-white font-medium drop-shadow-lg px-4">
-                Нажми на кнопку, чтобы начать игру.<br />
-                У тебя будет 30 секунд, чтобы поймать как можно больше снежинок!
-              </p>
             </div>
             
             <div className="relative z-10">
