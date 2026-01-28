@@ -101,17 +101,6 @@ const WinterGame = () => {
             <div className="relative z-10 space-y-6">
               <Icon name="Snowflake" size={80} className="text-yellow-400 mx-auto animate-spin drop-shadow-2xl" style={{ animationDuration: '10s' }} />
             </div>
-            
-            <div className="relative z-10">
-              <Button
-                size="lg"
-                onClick={startGame}
-                className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold shadow-xl shadow-yellow-500/40 border-2 border-yellow-300 text-lg px-8 py-6"
-              >
-                <Icon name="Play" size={24} className="mr-2" />
-                Начать игру
-              </Button>
-            </div>
           </div>
         ) : gameActive ? (
           <div className="space-y-4">
