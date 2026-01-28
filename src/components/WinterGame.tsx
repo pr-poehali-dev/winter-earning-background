@@ -76,7 +76,7 @@ const WinterGame = () => {
   };
 
   return (
-    <Card className="bg-white/95 backdrop-blur-xl border-0 shadow-2xl overflow-hidden">
+    <Card className="bg-white/95 backdrop-blur-xl border-0 shadow-2xl overflow-hidden w-full">
       <CardHeader className="text-center bg-gradient-to-r from-primary/10 to-secondary/10">
         <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/40">
           <Icon name="Gamepad2" size={32} className="text-white" />
@@ -88,12 +88,12 @@ const WinterGame = () => {
       <CardContent className="p-6">
         {!gameActive && timeLeft === 30 ? (
           <div
-            className="relative text-center space-y-6 py-12 rounded-xl overflow-hidden"
+            className="relative text-center space-y-6 py-12 rounded-xl overflow-hidden w-full"
             style={{
               backgroundImage: 'url(https://cdn.poehali.dev/projects/e2e3e1ec-61af-447a-9ddd-cd4c0b2a4b15/bucket/dd9153f5-53a5-44a3-817b-5eb1e9cc0124.jpg)',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              minHeight: '600px',
+              minHeight: '700px',
             }}
           >
             <div className="absolute inset-0 bg-black/10" />
