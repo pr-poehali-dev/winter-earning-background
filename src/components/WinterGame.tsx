@@ -88,12 +88,14 @@ const WinterGame = () => {
       <CardContent className="p-6">
         {!gameActive && timeLeft === 30 ? (
           <div
-            className="relative text-center space-y-6 py-12 rounded-xl overflow-hidden w-full"
+            className="relative text-center space-y-6 rounded-xl overflow-hidden mx-auto"
             style={{
               backgroundImage: 'url(https://cdn.poehali.dev/projects/e2e3e1ec-61af-447a-9ddd-cd4c0b2a4b15/bucket/dd9153f5-53a5-44a3-817b-5eb1e9cc0124.jpg)',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              minHeight: '700px',
+              width: '1024px',
+              height: '1024px',
+              maxWidth: '100%',
             }}
           >
           </div>
