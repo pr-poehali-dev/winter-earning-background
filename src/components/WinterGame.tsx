@@ -87,17 +87,22 @@ const WinterGame = () => {
 
       <CardContent className="p-6">
         {!gameActive && timeLeft === 30 ? (
-          <div
-            className="relative text-center space-y-6 rounded-xl overflow-hidden mx-auto"
-            style={{
-              backgroundImage: 'url(https://cdn.poehali.dev/projects/e2e3e1ec-61af-447a-9ddd-cd4c0b2a4b15/bucket/dd9153f5-53a5-44a3-817b-5eb1e9cc0124.jpg)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              width: '1024px',
-              height: '1024px',
-              maxWidth: '100%',
-            }}
-          >
+          <div className="text-center space-y-6 py-8">
+            <div className="space-y-3">
+              <Icon name="Snowflake" size={64} className="text-primary mx-auto animate-spin" style={{ animationDuration: '10s' }} />
+              <p className="text-lg text-muted-foreground">
+                Нажми на кнопку, чтобы начать игру.<br />
+                У тебя будет 30 секунд, чтобы поймать как можно больше снежинок!
+              </p>
+            </div>
+            <Button
+              size="lg"
+              onClick={startGame}
+              className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/30"
+            >
+              <Icon name="Play" size={20} className="mr-2" />
+              Начать игру
+            </Button>
           </div>
         ) : gameActive ? (
           <div className="space-y-4">
