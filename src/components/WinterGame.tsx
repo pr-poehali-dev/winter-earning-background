@@ -1,0 +1,187 @@
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import Icon from '@/components/ui/icon';
+
+const WinterGame = () => {
+  const [score, setScore] = useState(0);
+  const [gameActive, setGameActive] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(30);
+  const [snowflakes, setSnowflakes] = useState<Array<{ id: number; x: number; y: number; size: number }>>([]);
+  const [clickedIds, setClickedIds] = useState<Set<number>>(new Set());
+
+  useEffect(() => {
+    if (!gameActive) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          setGameActive(false);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [gameActive]);
+
+  useEffect(() => {
+    if (!gameActive) return;
+
+    const interval = setInterval(() => {
+      const newSnowflake = {
+        id: Date.now(),
+        x: Math.random() * 90,
+        y: -10,
+        size: 30 + Math.random() * 30,
+      };
+      setSnowflakes((prev) => [...prev, newSnowflake]);
+    }, 800);
+
+    return () => clearInterval(interval);
+  }, [gameActive]);
+
+  useEffect(() => {
+    if (!gameActive) return;
+
+    const moveInterval = setInterval(() => {
+      setSnowflakes((prev) =>
+        prev
+          .map((snowflake) => ({
+            ...snowflake,
+            y: snowflake.y + 2,
+          }))
+          .filter((snowflake) => snowflake.y < 100)
+      );
+    }, 50);
+
+    return () => clearInterval(moveInterval);
+  }, [gameActive]);
+
+  const startGame = () => {
+    setScore(0);
+    setTimeLeft(30);
+    setGameActive(true);
+    setSnowflakes([]);
+    setClickedIds(new Set());
+  };
+
+  const catchSnowflake = (id: number) => {
+    if (clickedIds.has(id)) return;
+    
+    setClickedIds((prev) => new Set([...prev, id]));
+    setScore((prev) => prev + 10);
+    setSnowflakes((prev) => prev.filter((s) => s.id !== id));
+  };
+
+  return (
+    <Card className="bg-white/95 backdrop-blur-xl border-0 shadow-2xl overflow-hidden">
+      <CardHeader className="text-center bg-gradient-to-r from-primary/10 to-secondary/10">
+        <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/40">
+          <Icon name="Gamepad2" size={32} className="text-white" />
+        </div>
+        <CardTitle className="text-3xl mb-2">Ловим снежинки!</CardTitle>
+        <p className="text-muted-foreground">Кликай на снежинки и зарабатывай очки</p>
+      </CardHeader>
+
+      <CardContent className="p-6">
+        {!gameActive && timeLeft === 30 ? (
+          <div className="text-center space-y-6 py-8">
+            <div className="space-y-3">
+              <Icon name="Snowflake" size={64} className="text-primary mx-auto animate-spin" style={{ animationDuration: '10s' }} />
+              <p className="text-lg text-muted-foreground">
+                Нажми на кнопку, чтобы начать игру.<br />
+                У тебя будет 30 секунд, чтобы поймать как можно больше снежинок!
+              </p>
+            </div>
+            <Button
+              size="lg"
+              onClick={startGame}
+              className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/30"
+            >
+              <Icon name="Play" size={20} className="mr-2" />
+              Начать игру
+            </Button>
+          </div>
+        ) : gameActive ? (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between p-4 bg-primary/10 rounded-xl">
+              <div className="flex items-center gap-3">
+                <Icon name="Trophy" size={24} className="text-primary" />
+                <div>
+                  <div className="text-sm text-muted-foreground">Очки</div>
+                  <div className="text-2xl font-bold text-primary">{score}</div>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <Icon name="Timer" size={24} className="text-secondary" />
+                <div>
+                  <div className="text-sm text-muted-foreground">Время</div>
+                  <div className="text-2xl font-bold text-secondary">{timeLeft}с</div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              className="relative w-full h-96 bg-gradient-to-b from-sky-100 to-sky-50 rounded-xl border-2 border-primary/20 overflow-hidden"
+              style={{ cursor: 'crosshair' }}
+            >
+              {snowflakes.map((snowflake) => (
+                <button
+                  key={snowflake.id}
+                  onClick={() => catchSnowflake(snowflake.id)}
+                  className="absolute transition-all hover:scale-125 active:scale-90"
+                  style={{
+                    left: `${snowflake.x}%`,
+                    top: `${snowflake.y}%`,
+                    fontSize: `${snowflake.size}px`,
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                >
+                  <Icon name="Snowflake" size={snowflake.size} className="text-primary/70 hover:text-primary animate-spin" style={{ animationDuration: '3s' }} />
+                </button>
+              ))}
+
+              {snowflakes.length === 0 && (
+                <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
+                  <Icon name="Wind" size={48} className="opacity-30" />
+                </div>
+              )}
+            </div>
+
+            <p className="text-center text-sm text-muted-foreground">
+              💡 Совет: кликай быстро, снежинки падают всё быстрее!
+            </p>
+          </div>
+        ) : (
+          <div className="text-center space-y-6 py-8">
+            <div className="space-y-4">
+              <Icon name="Award" size={64} className="text-primary mx-auto" />
+              <div>
+                <h3 className="text-2xl font-bold mb-2">Игра окончена!</h3>
+                <p className="text-4xl font-bold text-primary mb-2">{score} очков</p>
+                <p className="text-muted-foreground">
+                  {score >= 200 ? '🏆 Невероятный результат!' : score >= 100 ? '🎯 Отличная работа!' : '❄️ Попробуй ещё раз!'}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex gap-3 justify-center">
+              <Button
+                size="lg"
+                onClick={startGame}
+                className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/30"
+              >
+                <Icon name="RotateCcw" size={20} className="mr-2" />
+                Играть снова
+              </Button>
+            </div>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+};
+
+export default WinterGame;

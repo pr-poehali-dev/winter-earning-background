@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
+import WinterGame from '@/components/WinterGame';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -168,30 +169,34 @@ const Index = () => {
             </section>
 
             <section className="container mx-auto px-6 py-24">
-              <div className="max-w-4xl mx-auto">
-                <Card className="bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-xl border-white/30 shadow-2xl">
-                  <CardHeader className="text-center pb-6">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/40">
-                      <Icon name="Mail" size={32} className="text-white" />
-                    </div>
-                    <CardTitle className="text-3xl text-white mb-3">Не пропускайте новые материалы</CardTitle>
-                    <CardDescription className="text-lg text-white/80">
-                      Подпишитесь на рассылку и получайте свежие статьи первыми
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                      <input
-                        type="email"
-                        placeholder="Ваш email"
-                        className="flex-1 px-4 py-3 rounded-lg bg-white/90 backdrop-blur-sm border border-white/30 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-all"
-                      />
-                      <Button size="lg" className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/40 transition-all duration-300 hover:scale-105">
-                        Подписаться
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+              <div className="max-w-6xl mx-auto">
+                <div className="grid lg:grid-cols-2 gap-8 items-start">
+                  <WinterGame />
+
+                  <Card className="bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-xl border-white/30 shadow-2xl">
+                    <CardHeader className="text-center pb-6">
+                      <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/40">
+                        <Icon name="Mail" size={32} className="text-white" />
+                      </div>
+                      <CardTitle className="text-3xl text-white mb-3">Не пропускайте новые материалы</CardTitle>
+                      <CardDescription className="text-lg text-white/80">
+                        Подпишитесь на рассылку и получайте свежие статьи первыми
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                        <input
+                          type="email"
+                          placeholder="Ваш email"
+                          className="flex-1 px-4 py-3 rounded-lg bg-white/90 backdrop-blur-sm border border-white/30 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+                        />
+                        <Button size="lg" className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/40 transition-all duration-300 hover:scale-105">
+                          Подписаться
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
               </div>
             </section>
           </>
