@@ -13,6 +13,9 @@ const WinterGame = () => {
   const [playersAlive, setPlayersAlive] = useState(100);
   const [brPlayerHP, setBrPlayerHP] = useState(100);
   const [kills, setKills] = useState(0);
+  const [playerX, setPlayerX] = useState(50);
+  const [playerY, setPlayerY] = useState(50);
+  const [rotation, setRotation] = useState(0);
   const [fightMode, setFightMode] = useState(false);
   const [playerHP, setPlayerHP] = useState(100);
   const [enemyHP, setEnemyHP] = useState(100);
@@ -117,8 +120,45 @@ const WinterGame = () => {
     setPlayersAlive(100);
     setBrPlayerHP(100);
     setKills(0);
+    setPlayerX(50);
+    setPlayerY(50);
+    setRotation(0);
     setBattleLog(['🎮 Битва началась! 100 игроков на поле боя!']);
   };
+
+  useEffect(() => {
+    if (!brGameActive) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const step = 2;
+      
+      switch(e.key.toLowerCase()) {
+        case 'w':
+        case 'arrowup':
+          setPlayerY(prev => Math.max(10, prev - step));
+          break;
+        case 's':
+        case 'arrowdown':
+          setPlayerY(prev => Math.min(90, prev + step));
+          break;
+        case 'a':
+        case 'arrowleft':
+          setPlayerX(prev => Math.max(10, prev - step));
+          setRotation(-5);
+          setTimeout(() => setRotation(0), 100);
+          break;
+        case 'd':
+        case 'arrowright':
+          setPlayerX(prev => Math.min(90, prev + step));
+          setRotation(5);
+          setTimeout(() => setRotation(0), 100);
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [brGameActive]);
 
   const shootEnemy = () => {
     if (playersAlive <= 1 || brPlayerHP <= 0) return;
@@ -351,9 +391,11 @@ const WinterGame = () => {
                   style={{
                     backgroundImage: 'url(https://cdn.poehali.dev/projects/e2e3e1ec-61af-447a-9ddd-cd4c0b2a4b15/files/b43fcecf-8436-4e64-98e9-a97e599782d2.jpg)',
                     backgroundSize: 'cover',
-                    backgroundPosition: 'center',
+                    backgroundPosition: `${playerX}% ${playerY}%`,
                     width: '100%',
                     height: '400px',
+                    transform: `rotate(${rotation}deg)`,
+                    transition: 'background-position 0.1s linear, transform 0.1s ease',
                   }}
                   onClick={shootEnemy}
                 >
@@ -392,10 +434,22 @@ const WinterGame = () => {
                     </div>
                   </div>
 
-                  {/* Подсказка */}
+                  {/* Подсказка управления */}
                   <div className="absolute bottom-4 right-4 z-20">
                     <div className="bg-black/70 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/30">
-                      <div className="text-white text-xs">🖱️ Кликай для стрельбы</div>
+                      <div className="text-white text-xs space-y-1">
+                        <div>⌨️ WASD / Стрелки - Движение</div>
+                        <div>🖱️ Клик - Стрельба</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Индикатор движения */}
+                  <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 z-20">
+                    <div className="bg-black/50 backdrop-blur-sm rounded-full px-4 py-2 border border-cyan-500/50">
+                      <div className="text-cyan-300 text-xs font-bold">
+                        📍 X: {Math.round(playerX)} Y: {Math.round(playerY)}
+                      </div>
                     </div>
                   </div>
                 </div>
