@@ -196,7 +196,41 @@ const WinterGame = () => {
                 width: '100%',
                 height: '600px',
               }}
-            />
+            >
+              {/* Тень игрока (слева) */}
+              <div className="absolute bottom-8 left-16">
+                <div className="relative group">
+                  <div className="w-24 h-32 bg-gradient-to-t from-black via-gray-900 to-transparent opacity-80 rounded-full blur-sm animate-pulse" 
+                       style={{ filter: 'blur(8px)' }}>
+                  </div>
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4">
+                    <div className="w-16 h-16 rounded-full bg-blue-500/30 border-2 border-blue-400 flex items-center justify-center backdrop-blur-sm">
+                      <Icon name="User" size={32} className="text-blue-300" />
+                    </div>
+                    <div className="absolute -top-2 -right-2 px-2 py-1 bg-blue-500 rounded-full text-xs text-white font-bold">
+                      ТЫ
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Тень противника (справа) - автоматическая */}
+              <div className="absolute bottom-8 right-16">
+                <div className="relative group">
+                  <div className="w-24 h-32 bg-gradient-to-t from-red-900 via-red-800 to-transparent opacity-80 rounded-full blur-sm animate-pulse" 
+                       style={{ filter: 'blur(8px)', animationDuration: '1.5s' }}>
+                  </div>
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4">
+                    <div className="w-16 h-16 rounded-full bg-red-500/30 border-2 border-red-400 flex items-center justify-center backdrop-blur-sm animate-bounce">
+                      <Icon name="Skull" size={32} className="text-red-300" />
+                    </div>
+                    <div className="absolute -top-2 -left-2 px-2 py-1 bg-red-500 rounded-full text-xs text-white font-bold">
+                      AI
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             
             <div className="text-center space-y-4">
               <h3 className="text-2xl font-bold">Древний город</h3>
