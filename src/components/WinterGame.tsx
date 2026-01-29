@@ -6,6 +6,7 @@ import Icon from '@/components/ui/icon';
 const WinterGame = () => {
   const [score, setScore] = useState(0);
   const [gameActive, setGameActive] = useState(false);
+  const [showMap, setShowMap] = useState(false);
   const [timeLeft, setTimeLeft] = useState(30);
   const [snowflakes, setSnowflakes] = useState<Array<{ id: number; x: number; y: number; size: number }>>([]);
   const [clickedIds, setClickedIds] = useState<Set<number>>(new Set());
@@ -86,7 +87,7 @@ const WinterGame = () => {
       </CardHeader>
 
       <CardContent className="p-6">
-        {!gameActive && timeLeft === 30 ? (
+        {!showMap && !gameActive && timeLeft === 30 ? (
           <div className="space-y-4">
             <div
               className="relative rounded-xl overflow-hidden mx-auto group"
@@ -119,21 +120,52 @@ const WinterGame = () => {
             </div>
             
             <div className="text-center space-y-6 py-4">
-              <div className="space-y-3">
-                <Icon name="Snowflake" size={64} className="text-primary mx-auto animate-spin" style={{ animationDuration: '10s' }} />
-                <p className="text-lg text-muted-foreground">
-                  Нажми на кнопку, чтобы начать игру.<br />
-                  У тебя будет 30 секунд, чтобы поймать как можно больше снежинок!
-                </p>
-              </div>
               <Button
                 size="lg"
-                onClick={startGame}
-                className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/30"
+                onClick={() => setShowMap(true)}
+                className="bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 hover:from-yellow-400 hover:via-yellow-300 hover:to-yellow-400 text-black font-bold shadow-2xl shadow-yellow-500/50 border-2 border-yellow-300 px-12 py-6 text-xl transition-all duration-300 hover:scale-110"
               >
-                <Icon name="Play" size={20} className="mr-2" />
-                Начать игру
+                <Icon name="Play" size={24} className="mr-2" />
+                Начать
               </Button>
+            </div>
+          </div>
+        ) : showMap && !gameActive ? (
+          <div className="space-y-4">
+            <div
+              className="relative rounded-xl overflow-hidden mx-auto"
+              style={{
+                backgroundImage: 'url(https://cdn.poehali.dev/projects/e2e3e1ec-61af-447a-9ddd-cd4c0b2a4b15/files/6178d06f-fd0d-44df-84ea-77414b3f9025.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                width: '100%',
+                height: '600px',
+              }}
+            />
+            
+            <div className="text-center space-y-4">
+              <p className="text-lg text-muted-foreground">
+                Выбери город на карте, чтобы начать своё путешествие!
+              </p>
+              <div className="flex gap-3 justify-center">
+                <Button
+                  size="lg"
+                  onClick={() => setShowMap(false)}
+                  variant="outline"
+                  className="border-2"
+                >
+                  <Icon name="ArrowLeft" size={20} className="mr-2" />
+                  Назад
+                </Button>
+                <Button
+                  size="lg"
+                  onClick={startGame}
+                  className="bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 hover:from-yellow-400 hover:via-yellow-300 hover:to-yellow-400 text-black font-bold shadow-2xl shadow-yellow-500/50 border-2 border-yellow-300"
+                >
+                  <Icon name="Play" size={20} className="mr-2" />
+                  Начать игру
+                </Button>
+              </div>
             </div>
           </div>
         ) : gameActive ? (
