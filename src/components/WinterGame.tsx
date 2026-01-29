@@ -100,7 +100,7 @@ const WinterGame = () => {
               }}
             >
               <div 
-                className="absolute inset-0 flex items-end justify-center transition-all duration-700 group-hover:scale-105"
+                className="absolute inset-0 flex items-center justify-center transition-all duration-700 group-hover:scale-105"
                 style={{
                   transformStyle: 'preserve-3d',
                   transform: 'rotateY(0deg)',
