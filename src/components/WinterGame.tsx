@@ -7,6 +7,7 @@ const WinterGame = () => {
   const [score, setScore] = useState(0);
   const [gameActive, setGameActive] = useState(false);
   const [showMap, setShowMap] = useState(false);
+  const [showCityMap, setShowCityMap] = useState(false);
   const [timeLeft, setTimeLeft] = useState(30);
   const [snowflakes, setSnowflakes] = useState<Array<{ id: number; x: number; y: number; size: number }>>([]);
   const [clickedIds, setClickedIds] = useState<Set<number>>(new Set());
@@ -153,7 +154,7 @@ const WinterGame = () => {
               }}
             >
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <div className="relative group cursor-pointer">
+                <div className="relative group cursor-pointer" onClick={() => setShowCityMap(true)}>
                   <div className="w-32 h-32 rounded-full bg-gradient-to-br from-yellow-400 via-yellow-300 to-yellow-500 flex items-center justify-center shadow-2xl border-4 border-yellow-600 transition-all duration-300 hover:scale-110 animate-pulse">
                     <img
                       src="https://cdn.poehali.dev/projects/e2e3e1ec-61af-447a-9ddd-cd4c0b2a4b15/bucket/632c26b7-81bb-42db-87df-1ed3246f1abc.png"
@@ -168,19 +169,53 @@ const WinterGame = () => {
               </div>
             </div>
             
-            <div className="text-center space-y-4">
-              <p className="text-lg text-muted-foreground">
-                Выбери город на карте, чтобы начать своё путешествие!
-              </p>
-              <Button
-                size="lg"
-                onClick={startGame}
-                className="bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 hover:from-yellow-400 hover:via-yellow-300 hover:to-yellow-400 text-black font-bold shadow-2xl shadow-yellow-500/50 border-2 border-yellow-300"
-              >
-                <Icon name="Play" size={20} className="mr-2" />
-                Начать игру
-              </Button>
-            </div>
+            {!showCityMap && (
+              <div className="text-center space-y-4">
+                <p className="text-lg text-muted-foreground">
+                  Выбери город на карте, чтобы начать своё путешествие!
+                </p>
+              </div>
+            )}
+
+            {showCityMap && (
+              <div className="space-y-4 mt-4">
+                <div
+                  className="relative rounded-xl overflow-hidden mx-auto"
+                  style={{
+                    backgroundImage: 'url(https://cdn.poehali.dev/projects/e2e3e1ec-61af-447a-9ddd-cd4c0b2a4b15/bucket/66181963-522e-4d18-9427-a9c7079daf83.jpg)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    width: '100%',
+                    height: '400px',
+                  }}
+                />
+                <div className="text-center space-y-4">
+                  <h3 className="text-2xl font-bold">Древний город</h3>
+                  <p className="text-muted-foreground">
+                    Ты попал в загадочный восточный город. Готов к приключению?
+                  </p>
+                  <div className="flex gap-3 justify-center">
+                    <Button
+                      size="lg"
+                      onClick={() => setShowCityMap(false)}
+                      variant="outline"
+                      className="border-2"
+                    >
+                      <Icon name="ArrowLeft" size={20} className="mr-2" />
+                      Назад к карте
+                    </Button>
+                    <Button
+                      size="lg"
+                      onClick={startGame}
+                      className="bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 hover:from-yellow-400 hover:via-yellow-300 hover:to-yellow-400 text-black font-bold shadow-2xl shadow-yellow-500/50 border-2 border-yellow-300"
+                    >
+                      <Icon name="Play" size={20} className="mr-2" />
+                      Начать игру
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         ) : gameActive ? (
           <div className="space-y-4">
