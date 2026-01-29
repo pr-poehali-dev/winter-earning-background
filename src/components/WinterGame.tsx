@@ -89,15 +89,34 @@ const WinterGame = () => {
         {!gameActive && timeLeft === 30 ? (
           <div className="space-y-4">
             <div
-              className="relative rounded-xl overflow-hidden mx-auto"
+              className="relative rounded-xl overflow-hidden mx-auto group"
               style={{
                 backgroundImage: 'url(https://cdn.poehali.dev/projects/e2e3e1ec-61af-447a-9ddd-cd4c0b2a4b15/bucket/dc4e28a8-04c4-4add-962f-549eddc8150f.jpg)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 width: '100%',
                 height: '500px',
+                perspective: '1000px',
               }}
-            />
+            >
+              <div 
+                className="absolute inset-0 flex items-end justify-center transition-all duration-700 group-hover:scale-105"
+                style={{
+                  transformStyle: 'preserve-3d',
+                  transform: 'rotateY(0deg)',
+                }}
+              >
+                <img
+                  src="https://cdn.poehali.dev/projects/e2e3e1ec-61af-447a-9ddd-cd4c0b2a4b15/bucket/632c26b7-81bb-42db-87df-1ed3246f1abc.png"
+                  alt="Character"
+                  className="h-[85%] object-contain drop-shadow-2xl transition-all duration-500 group-hover:translate-y-[-10px]"
+                  style={{
+                    filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.4))',
+                    transform: 'translateZ(50px)',
+                  }}
+                />
+              </div>
+            </div>
             
             <div className="text-center space-y-6 py-4">
               <div className="space-y-3">
