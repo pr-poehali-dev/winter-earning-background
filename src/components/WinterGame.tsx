@@ -191,6 +191,7 @@ const WinterGame = () => {
                 height: '600px',
               }}
             >
+              {/* Первый круг - центр */}
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <div className="relative group cursor-pointer" onClick={() => setShowCityMap(true)}>
                   <div className="w-32 h-32 rounded-full bg-gradient-to-br from-yellow-400 via-yellow-300 to-yellow-500 flex items-center justify-center shadow-2xl border-4 border-yellow-600 transition-all duration-300 hover:scale-110 animate-pulse">
@@ -202,6 +203,22 @@ const WinterGame = () => {
                   </div>
                   <div className="absolute -top-2 -right-2 w-8 h-8 bg-red-500 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold animate-bounce">
                     !
+                  </div>
+                </div>
+              </div>
+
+              {/* Второй круг - справа вверху */}
+              <div className="absolute top-1/4 right-1/4">
+                <div className="relative group cursor-pointer" onClick={() => setShowCityMap(true)}>
+                  <div className="w-28 h-28 rounded-full bg-gradient-to-br from-purple-400 via-purple-300 to-purple-500 flex items-center justify-center shadow-2xl border-4 border-purple-600 transition-all duration-300 hover:scale-110 animate-pulse" style={{ animationDuration: '2.5s' }}>
+                    <img
+                      src="https://cdn.poehali.dev/projects/e2e3e1ec-61af-447a-9ddd-cd4c0b2a4b15/bucket/e749d721-b83b-47e4-9326-7e832ade1259.png"
+                      alt="Character 2"
+                      className="w-20 h-20 object-cover rounded-full"
+                    />
+                  </div>
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold animate-bounce">
+                    2
                   </div>
                 </div>
               </div>
