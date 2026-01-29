@@ -197,36 +197,55 @@ const WinterGame = () => {
                 height: '600px',
               }}
             >
-              {/* Тень игрока (слева) */}
-              <div className="absolute bottom-8 left-16">
-                <div className="relative group">
-                  <div className="w-24 h-32 bg-gradient-to-t from-black via-gray-900 to-transparent opacity-80 rounded-full blur-sm animate-pulse" 
-                       style={{ filter: 'blur(8px)' }}>
+              {/* Тень игрока (слева) - управляемая */}
+              <div className="absolute bottom-4 left-12">
+                <div className="relative">
+                  {/* Силуэт тени с эффектом дыма */}
+                  <div className="relative w-32 h-48">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-blue-950/90 to-transparent opacity-95" 
+                         style={{ 
+                           clipPath: 'polygon(30% 0%, 70% 0%, 85% 40%, 90% 100%, 10% 100%, 15% 40%)',
+                           filter: 'blur(3px) drop-shadow(0 0 20px rgba(59, 130, 246, 0.6))'
+                         }}>
+                    </div>
+                    {/* Глаза */}
+                    <div className="absolute top-8 left-1/2 transform -translate-x-1/2 flex gap-4">
+                      <div className="w-3 h-3 rounded-full bg-cyan-400 animate-pulse shadow-lg shadow-cyan-400/80"></div>
+                      <div className="w-3 h-3 rounded-full bg-cyan-400 animate-pulse shadow-lg shadow-cyan-400/80"></div>
+                    </div>
+                    {/* Аура */}
+                    <div className="absolute inset-0 bg-blue-500/10 rounded-full blur-xl animate-pulse"></div>
                   </div>
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4">
-                    <div className="w-16 h-16 rounded-full bg-blue-500/30 border-2 border-blue-400 flex items-center justify-center backdrop-blur-sm">
-                      <Icon name="User" size={32} className="text-blue-300" />
-                    </div>
-                    <div className="absolute -top-2 -right-2 px-2 py-1 bg-blue-500 rounded-full text-xs text-white font-bold">
-                      ТЫ
-                    </div>
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full text-xs text-white font-bold shadow-lg border border-cyan-300">
+                    ⚔️ ИГРОК
                   </div>
                 </div>
               </div>
 
-              {/* Тень противника (справа) - автоматическая */}
-              <div className="absolute bottom-8 right-16">
-                <div className="relative group">
-                  <div className="w-24 h-32 bg-gradient-to-t from-red-900 via-red-800 to-transparent opacity-80 rounded-full blur-sm animate-pulse" 
-                       style={{ filter: 'blur(8px)', animationDuration: '1.5s' }}>
+              {/* Тень противника (справа) - AI */}
+              <div className="absolute bottom-4 right-12">
+                <div className="relative">
+                  {/* Силуэт тени с эффектом огня */}
+                  <div className="relative w-32 h-48">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-red-950/90 to-transparent opacity-95" 
+                         style={{ 
+                           clipPath: 'polygon(25% 0%, 75% 0%, 90% 35%, 95% 100%, 5% 100%, 10% 35%)',
+                           filter: 'blur(3px) drop-shadow(0 0 20px rgba(239, 68, 68, 0.7))'
+                         }}>
+                    </div>
+                    {/* Глаза */}
+                    <div className="absolute top-8 left-1/2 transform -translate-x-1/2 flex gap-4">
+                      <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse shadow-lg shadow-red-500/80" style={{ animationDuration: '1s' }}></div>
+                      <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse shadow-lg shadow-red-500/80" style={{ animationDuration: '1s' }}></div>
+                    </div>
+                    {/* Рога */}
+                    <div className="absolute -top-2 left-4 w-4 h-6 bg-red-900 opacity-80" style={{ clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)' }}></div>
+                    <div className="absolute -top-2 right-4 w-4 h-6 bg-red-900 opacity-80" style={{ clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)' }}></div>
+                    {/* Аура */}
+                    <div className="absolute inset-0 bg-red-500/10 rounded-full blur-xl animate-pulse" style={{ animationDuration: '1.2s' }}></div>
                   </div>
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4">
-                    <div className="w-16 h-16 rounded-full bg-red-500/30 border-2 border-red-400 flex items-center justify-center backdrop-blur-sm animate-bounce">
-                      <Icon name="Skull" size={32} className="text-red-300" />
-                    </div>
-                    <div className="absolute -top-2 -left-2 px-2 py-1 bg-red-500 rounded-full text-xs text-white font-bold">
-                      AI
-                    </div>
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-red-600 to-orange-500 rounded-full text-xs text-white font-bold shadow-lg border border-red-300 animate-bounce">
+                    👹 AI
                   </div>
                 </div>
               </div>
