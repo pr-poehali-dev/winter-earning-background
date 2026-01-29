@@ -9,6 +9,10 @@ const WinterGame = () => {
   const [showMap, setShowMap] = useState(false);
   const [showCityMap, setShowCityMap] = useState(false);
   const [showBattleRoyale, setShowBattleRoyale] = useState(false);
+  const [brGameActive, setBrGameActive] = useState(false);
+  const [playersAlive, setPlayersAlive] = useState(100);
+  const [brPlayerHP, setBrPlayerHP] = useState(100);
+  const [kills, setKills] = useState(0);
   const [fightMode, setFightMode] = useState(false);
   const [playerHP, setPlayerHP] = useState(100);
   const [enemyHP, setEnemyHP] = useState(100);
@@ -107,6 +111,33 @@ const WinterGame = () => {
     
     setTimeout(() => setEnemyAttacking(false), 500);
   };
+
+  const startBattleRoyale = () => {
+    setBrGameActive(true);
+    setPlayersAlive(100);
+    setBrPlayerHP(100);
+    setKills(0);
+  };
+
+  const shootEnemy = () => {
+    const hit = Math.random() > 0.3;
+    if (hit) {
+      setKills(prev => prev + 1);
+      setPlayersAlive(prev => prev - 1);
+    }
+  };
+
+  useEffect(() => {
+    if (!brGameActive || playersAlive <= 1) return;
+
+    const botKillInterval = setInterval(() => {
+      if (playersAlive > 2) {
+        setPlayersAlive(prev => Math.max(2, prev - Math.floor(Math.random() * 2)));
+      }
+    }, 3000);
+
+    return () => clearInterval(botKillInterval);
+  }, [brGameActive, playersAlive]);
 
   const catchSnowflake = (id: number) => {
     if (clickedIds.has(id)) return;
@@ -288,7 +319,7 @@ const WinterGame = () => {
 
                     <Button
                       size="lg"
-                      onClick={() => { setShowBattleRoyale(false); alert('Режим Battle Royale скоро будет доступен! 🎮'); }}
+                      onClick={startBattleRoyale}
                       className="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 hover:from-purple-500 hover:via-pink-400 hover:to-red-400 text-white font-bold text-xl py-6 shadow-2xl border-4 border-yellow-400 animate-pulse"
                     >
                       <Icon name="Swords" size={24} className="mr-2" />
@@ -298,6 +329,82 @@ const WinterGame = () => {
                 </div>
               </div>
             </div>
+
+            {brGameActive && (
+              <div className="mt-4 space-y-4">
+                {/* FPS вид от первого лица */}
+                <div
+                  className="relative rounded-xl overflow-hidden mx-auto cursor-crosshair"
+                  style={{
+                    backgroundImage: 'url(https://cdn.poehali.dev/projects/e2e3e1ec-61af-447a-9ddd-cd4c0b2a4b15/files/b43fcecf-8436-4e64-98e9-a97e599782d2.jpg)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    width: '100%',
+                    height: '400px',
+                  }}
+                  onClick={shootEnemy}
+                >
+                  {/* HUD - верхняя панель */}
+                  <div className="absolute top-4 left-0 right-0 flex justify-between px-4 z-20">
+                    <div className="bg-black/70 backdrop-blur-sm rounded-lg px-4 py-2 border border-purple-500/50">
+                      <div className="text-purple-300 text-sm font-bold">👥 Живых: {playersAlive}/100</div>
+                    </div>
+                    <div className="bg-black/70 backdrop-blur-sm rounded-lg px-4 py-2 border border-red-500/50">
+                      <div className="text-red-300 text-sm font-bold">💀 Убийств: {kills}</div>
+                    </div>
+                  </div>
+
+                  {/* Здоровье игрока */}
+                  <div className="absolute bottom-4 left-4 z-20">
+                    <div className="bg-black/70 backdrop-blur-sm rounded-lg p-3 border border-green-500/50">
+                      <div className="text-green-300 text-xs font-bold mb-1">❤️ ЗДОРОВЬЕ</div>
+                      <div className="w-32 bg-gray-700 rounded-full h-3">
+                        <div 
+                          className="bg-gradient-to-r from-green-500 to-green-400 h-3 rounded-full transition-all"
+                          style={{ width: `${brPlayerHP}%` }}
+                        />
+                      </div>
+                      <div className="text-white text-xs mt-1">{brPlayerHP} HP</div>
+                    </div>
+                  </div>
+
+                  {/* Прицел */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+                    <div className="relative w-12 h-12">
+                      <div className="absolute top-1/2 left-0 w-4 h-0.5 bg-red-500 shadow-lg"></div>
+                      <div className="absolute top-1/2 right-0 w-4 h-0.5 bg-red-500 shadow-lg"></div>
+                      <div className="absolute left-1/2 top-0 w-0.5 h-4 bg-red-500 shadow-lg"></div>
+                      <div className="absolute left-1/2 bottom-0 w-0.5 h-4 bg-red-500 shadow-lg"></div>
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1 h-1 bg-red-500 rounded-full"></div>
+                    </div>
+                  </div>
+
+                  {/* Подсказка */}
+                  <div className="absolute bottom-4 right-4 z-20">
+                    <div className="bg-black/70 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/30">
+                      <div className="text-white text-xs">🖱️ Кликай для стрельбы</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Результат игры */}
+                {playersAlive === 1 && (
+                  <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-xl border-2 border-yellow-400 p-6 text-center">
+                    <h3 className="text-4xl font-bold mb-2">🏆 ПОБЕДА!</h3>
+                    <p className="text-xl mb-4">Ты стал чемпионом королевской битвы!</p>
+                    <p className="text-lg text-muted-foreground mb-4">Убийств: {kills}</p>
+                    <Button
+                      size="lg"
+                      onClick={() => { setBrGameActive(false); setShowBattleRoyale(false); }}
+                      className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-black font-bold"
+                    >
+                      <Icon name="Home" size={20} className="mr-2" />
+                      Вернуться
+                    </Button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         ) : showCityMap && !gameActive ? (
           <div className="space-y-4">
