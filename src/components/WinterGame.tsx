@@ -151,7 +151,22 @@ const WinterGame = () => {
                 width: '100%',
                 height: '600px',
               }}
-            />
+            >
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <div className="relative group cursor-pointer">
+                  <div className="w-32 h-32 rounded-full bg-gradient-to-br from-yellow-400 via-yellow-300 to-yellow-500 flex items-center justify-center shadow-2xl border-4 border-yellow-600 transition-all duration-300 hover:scale-110 animate-pulse">
+                    <img
+                      src="https://cdn.poehali.dev/projects/e2e3e1ec-61af-447a-9ddd-cd4c0b2a4b15/bucket/632c26b7-81bb-42db-87df-1ed3246f1abc.png"
+                      alt="Character"
+                      className="w-24 h-24 object-cover rounded-full"
+                    />
+                  </div>
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-red-500 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold animate-bounce">
+                    !
+                  </div>
+                </div>
+              </div>
+            </div>
             
             <div className="text-center space-y-4">
               <p className="text-lg text-muted-foreground">
