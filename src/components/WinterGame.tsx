@@ -132,6 +132,16 @@ const WinterGame = () => {
           </div>
         ) : showMap && !gameActive ? (
           <div className="space-y-4">
+            <Button
+              onClick={() => setShowMap(false)}
+              variant="outline"
+              className="border-2 mb-4"
+              size="lg"
+            >
+              <Icon name="ArrowLeft" size={20} className="mr-2" />
+              Назад
+            </Button>
+            
             <div
               className="relative rounded-xl overflow-hidden mx-auto"
               style={{
@@ -147,25 +157,14 @@ const WinterGame = () => {
               <p className="text-lg text-muted-foreground">
                 Выбери город на карте, чтобы начать своё путешествие!
               </p>
-              <div className="flex gap-3 justify-center">
-                <Button
-                  size="lg"
-                  onClick={() => setShowMap(false)}
-                  variant="outline"
-                  className="border-2"
-                >
-                  <Icon name="ArrowLeft" size={20} className="mr-2" />
-                  Назад
-                </Button>
-                <Button
-                  size="lg"
-                  onClick={startGame}
-                  className="bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 hover:from-yellow-400 hover:via-yellow-300 hover:to-yellow-400 text-black font-bold shadow-2xl shadow-yellow-500/50 border-2 border-yellow-300"
-                >
-                  <Icon name="Play" size={20} className="mr-2" />
-                  Начать игру
-                </Button>
-              </div>
+              <Button
+                size="lg"
+                onClick={startGame}
+                className="bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 hover:from-yellow-400 hover:via-yellow-300 hover:to-yellow-400 text-black font-bold shadow-2xl shadow-yellow-500/50 border-2 border-yellow-300"
+              >
+                <Icon name="Play" size={20} className="mr-2" />
+                Начать игру
+              </Button>
             </div>
           </div>
         ) : gameActive ? (
