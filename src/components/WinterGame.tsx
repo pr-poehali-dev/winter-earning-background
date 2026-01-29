@@ -8,6 +8,7 @@ const WinterGame = () => {
   const [gameActive, setGameActive] = useState(false);
   const [showMap, setShowMap] = useState(false);
   const [showCityMap, setShowCityMap] = useState(false);
+  const [showBattleRoyale, setShowBattleRoyale] = useState(false);
   const [fightMode, setFightMode] = useState(false);
   const [playerHP, setPlayerHP] = useState(100);
   const [enemyHP, setEnemyHP] = useState(100);
@@ -209,7 +210,7 @@ const WinterGame = () => {
 
               {/* Второй круг - справа вверху */}
               <div className="absolute top-1/4 right-1/4">
-                <div className="relative group cursor-pointer" onClick={() => setShowCityMap(true)}>
+                <div className="relative group cursor-pointer" onClick={() => setShowBattleRoyale(true)}>
                   <div className="w-28 h-28 rounded-full bg-gradient-to-br from-purple-400 via-purple-300 to-purple-500 flex items-center justify-center shadow-2xl border-4 border-purple-600 transition-all duration-300 hover:scale-110 animate-pulse" style={{ animationDuration: '2.5s' }}>
                     <img
                       src="https://cdn.poehali.dev/projects/e2e3e1ec-61af-447a-9ddd-cd4c0b2a4b15/bucket/e749d721-b83b-47e4-9326-7e832ade1259.png"
@@ -228,6 +229,74 @@ const WinterGame = () => {
               <p className="text-lg text-muted-foreground">
                 Выбери город на карте, чтобы начать своё путешествие!
               </p>
+            </div>
+          </div>
+        ) : showBattleRoyale && !gameActive ? (
+          <div className="space-y-4">
+            <Button
+              onClick={() => setShowBattleRoyale(false)}
+              variant="outline"
+              className="border-2 mb-4"
+              size="lg"
+            >
+              <Icon name="ArrowLeft" size={20} className="mr-2" />
+              Назад к карте
+            </Button>
+
+            <div
+              className="relative rounded-xl overflow-hidden mx-auto"
+              style={{
+                backgroundImage: 'url(https://cdn.poehali.dev/projects/e2e3e1ec-61af-447a-9ddd-cd4c0b2a4b15/files/25592b6f-5e51-41b8-b0c6-0b28bd574ef6.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                width: '100%',
+                height: '600px',
+              }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/40"></div>
+              
+              {/* Логотип Battle Royale */}
+              <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-10">
+                <div className="bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 px-8 py-4 rounded-2xl border-4 border-yellow-400 shadow-2xl animate-pulse">
+                  <h2 className="text-4xl font-bold text-white drop-shadow-2xl">👑 КОРОЛЕВСКАЯ БИТВА</h2>
+                </div>
+              </div>
+
+              {/* Информация о режиме */}
+              <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-full max-w-2xl px-4 z-10">
+                <div className="bg-black/80 backdrop-blur-xl rounded-2xl p-6 border-2 border-purple-500/50 shadow-2xl">
+                  <div className="space-y-4 text-center">
+                    <div className="grid grid-cols-3 gap-4 mb-4">
+                      <div className="bg-gradient-to-br from-purple-600/30 to-pink-600/30 rounded-xl p-3 border border-purple-400/50">
+                        <div className="text-2xl mb-1">⚔️</div>
+                        <div className="text-sm text-purple-300 font-bold">100 ИГРОКОВ</div>
+                      </div>
+                      <div className="bg-gradient-to-br from-red-600/30 to-orange-600/30 rounded-xl p-3 border border-red-400/50">
+                        <div className="text-2xl mb-1">🔥</div>
+                        <div className="text-sm text-red-300 font-bold">ПОСЛЕДНИЙ ВЫЖИВШИЙ</div>
+                      </div>
+                      <div className="bg-gradient-to-br from-yellow-600/30 to-orange-600/30 rounded-xl p-3 border border-yellow-400/50">
+                        <div className="text-2xl mb-1">👑</div>
+                        <div className="text-sm text-yellow-300 font-bold">ЭПИЧНЫЕ НАГРАДЫ</div>
+                      </div>
+                    </div>
+
+                    <p className="text-white text-lg font-bold">
+                      Сразись с 99 противниками на арене!<br />
+                      Только один станет чемпионом!
+                    </p>
+
+                    <Button
+                      size="lg"
+                      onClick={() => { setShowBattleRoyale(false); alert('Режим Battle Royale скоро будет доступен! 🎮'); }}
+                      className="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 hover:from-purple-500 hover:via-pink-400 hover:to-red-400 text-white font-bold text-xl py-6 shadow-2xl border-4 border-yellow-400 animate-pulse"
+                    >
+                      <Icon name="Swords" size={24} className="mr-2" />
+                      НАЧАТЬ БИТВУ
+                    </Button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         ) : showCityMap && !gameActive ? (
