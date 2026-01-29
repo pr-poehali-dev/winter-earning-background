@@ -117,13 +117,26 @@ const WinterGame = () => {
     setPlayersAlive(100);
     setBrPlayerHP(100);
     setKills(0);
+    setBattleLog(['🎮 Битва началась! 100 игроков на поле боя!']);
   };
 
   const shootEnemy = () => {
+    if (playersAlive <= 1 || brPlayerHP <= 0) return;
+    
     const hit = Math.random() > 0.3;
     if (hit) {
       setKills(prev => prev + 1);
       setPlayersAlive(prev => prev - 1);
+      setBattleLog(prev => [...prev, `🎯 Попадание! Устранён противник. Осталось: ${playersAlive - 1}`]);
+    } else {
+      setBattleLog(prev => [...prev, '❌ Промах!']);
+    }
+
+    // Случайный урон от других игроков
+    if (Math.random() > 0.7 && brPlayerHP > 0) {
+      const damage = Math.floor(Math.random() * 15) + 5;
+      setBrPlayerHP(prev => Math.max(0, prev - damage));
+      setBattleLog(prev => [...prev, `🔥 Получен урон: ${damage} HP`]);
     }
   };
 
@@ -387,11 +400,32 @@ const WinterGame = () => {
                   </div>
                 </div>
 
+                {/* Лог событий */}
+                {playersAlive > 1 && brPlayerHP > 0 && (
+                  <div className="bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-purple-500/30 max-h-32 overflow-y-auto">
+                    <div className="space-y-1 text-sm text-white/90">
+                      {battleLog.slice(-5).map((log, i) => (
+                        <div key={i}>{log}</div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {/* Результат игры */}
-                {playersAlive === 1 && (
-                  <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-xl border-2 border-yellow-400 p-6 text-center">
-                    <h3 className="text-4xl font-bold mb-2">🏆 ПОБЕДА!</h3>
-                    <p className="text-xl mb-4">Ты стал чемпионом королевской битвы!</p>
+                {(playersAlive === 1 || brPlayerHP <= 0) && (
+                  <div className={`rounded-xl border-2 p-6 text-center ${
+                    playersAlive === 1 
+                      ? 'bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border-yellow-400' 
+                      : 'bg-gradient-to-r from-red-500/20 to-gray-500/20 border-red-400'
+                  }`}>
+                    <h3 className="text-4xl font-bold mb-2">
+                      {playersAlive === 1 ? '🏆 ПОБЕДА!' : '💀 ПОРАЖЕНИЕ'}
+                    </h3>
+                    <p className="text-xl mb-4">
+                      {playersAlive === 1 
+                        ? 'Ты стал чемпионом королевской битвы!' 
+                        : `Ты занял ${101 - playersAlive} место из 100`}
+                    </p>
                     <p className="text-lg text-muted-foreground mb-4">Убийств: {kills}</p>
                     <Button
                       size="lg"
