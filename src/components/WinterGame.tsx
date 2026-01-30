@@ -146,6 +146,17 @@ const WinterGame = () => {
                 </div>
               </div>
 
+              {/* Второй круг - справа сверху */}
+              <div className="absolute top-20 right-24">
+                <div className="relative group cursor-pointer">
+                  <div className="w-28 h-28 rounded-full bg-gradient-to-br from-green-400 via-emerald-300 to-green-500 flex items-center justify-center shadow-2xl border-4 border-green-600 transition-all duration-300 hover:scale-110 animate-pulse">
+                    <Icon name="Mountain" size={48} className="text-white" />
+                  </div>
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-orange-500 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold animate-bounce">
+                    ?
+                  </div>
+                </div>
+              </div>
 
             </div>
             
