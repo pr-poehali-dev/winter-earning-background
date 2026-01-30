@@ -186,21 +186,7 @@ const WinterGame = () => {
                 height: '600px',
               }}
             >
-              
-              {/* Сундук с сокровищами */}
-              <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2">
-                <div className="relative group cursor-pointer hover:scale-110 transition-all duration-500">
-                  <div className="w-32 h-24 bg-gradient-to-br from-yellow-700 via-yellow-600 to-yellow-800 rounded-lg border-4 border-yellow-900 shadow-2xl">
-                    <div className="absolute inset-2 border-2 border-yellow-400 rounded-md" />
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-8 bg-yellow-900 rounded-sm" />
-                    <div className="text-4xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">💎</div>
-                  </div>
-                  <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 px-4 py-2 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full text-sm text-white font-bold shadow-xl border-2 border-yellow-300 whitespace-nowrap">
-                    🏆 Сокровище горы
-                  </div>
-                  <div className="absolute inset-0 bg-yellow-400/20 rounded-lg blur-xl animate-pulse" />
-                </div>
-              </div>
+
             </div>
             
             <div className="text-center space-y-4 p-8 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-xl border-2 border-green-400">
