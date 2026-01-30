@@ -184,22 +184,55 @@ const WinterGame = () => {
               style={{
                 width: '100%',
                 height: '600px',
-                background: 'linear-gradient(to bottom, #87CEEB 0%, #E0F6FF 100%)',
+                background: 'linear-gradient(to bottom, #87CEEB 0%, #B4E4FF 50%, #0077BE 100%)',
               }}
             >
-              {/* Облака */}
-              <div className="absolute top-12 left-20 w-32 h-16 bg-white/90 rounded-full blur-sm animate-pulse" style={{ animationDuration: '4s' }} />
-              <div className="absolute top-20 left-16 w-24 h-12 bg-white/80 rounded-full blur-sm" />
-              
-              <div className="absolute top-24 right-32 w-40 h-20 bg-white/90 rounded-full blur-sm animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
-              <div className="absolute top-28 right-28 w-28 h-14 bg-white/80 rounded-full blur-sm" />
-              
-              <div className="absolute top-40 left-1/2 transform -translate-x-1/2 w-36 h-18 bg-white/85 rounded-full blur-sm animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }} />
-              <div className="absolute top-44 left-1/2 transform -translate-x-1/2 w-24 h-12 bg-white/75 rounded-full blur-sm" />
+              {/* Облака - улучшенные */}
+              <div className="absolute top-8 left-12">
+                <div className="relative">
+                  <div className="absolute w-20 h-20 bg-white rounded-full"></div>
+                  <div className="absolute left-12 top-4 w-28 h-28 bg-white rounded-full"></div>
+                  <div className="absolute left-28 top-2 w-24 h-24 bg-white rounded-full"></div>
+                  <div className="absolute left-40 top-6 w-16 h-16 bg-white rounded-full"></div>
+                </div>
+              </div>
 
-              <div className="absolute top-16 right-16 w-28 h-14 bg-white/80 rounded-full blur-sm animate-pulse" style={{ animationDuration: '5.5s', animationDelay: '0.5s' }} />
-              
-              <div className="absolute top-60 left-24 w-32 h-16 bg-white/70 rounded-full blur-sm animate-pulse" style={{ animationDuration: '7s', animationDelay: '1.5s' }} />
+              <div className="absolute top-24 right-20">
+                <div className="relative">
+                  <div className="absolute w-16 h-16 bg-white rounded-full"></div>
+                  <div className="absolute left-10 top-3 w-24 h-24 bg-white rounded-full"></div>
+                  <div className="absolute left-24 top-1 w-20 h-20 bg-white rounded-full"></div>
+                  <div className="absolute left-36 top-5 w-14 h-14 bg-white rounded-full"></div>
+                </div>
+              </div>
+
+              <div className="absolute top-16 left-1/3">
+                <div className="relative">
+                  <div className="absolute w-18 h-18 bg-white rounded-full"></div>
+                  <div className="absolute left-8 top-2 w-22 h-22 bg-white rounded-full"></div>
+                  <div className="absolute left-20 top-0 w-18 h-18 bg-white rounded-full"></div>
+                </div>
+              </div>
+
+              {/* Море с волнами */}
+              <div className="absolute bottom-0 left-0 right-0 h-80 bg-gradient-to-b from-blue-400 via-blue-500 to-blue-600">
+                {/* Волны */}
+                <div className="absolute top-0 left-0 right-0">
+                  <svg width="100%" height="60" viewBox="0 0 1200 60" preserveAspectRatio="none">
+                    <path d="M0,30 Q150,10 300,30 T600,30 T900,30 T1200,30 L1200,60 L0,60 Z" fill="#3B82F6" opacity="0.5" />
+                  </svg>
+                </div>
+                <div className="absolute top-4 left-0 right-0">
+                  <svg width="100%" height="50" viewBox="0 0 1200 50" preserveAspectRatio="none">
+                    <path d="M0,25 Q100,15 200,25 T400,25 T600,25 T800,25 T1000,25 T1200,25 L1200,50 L0,50 Z" fill="#60A5FA" opacity="0.4" />
+                  </svg>
+                </div>
+                <div className="absolute top-8 left-0 right-0">
+                  <svg width="100%" height="40" viewBox="0 0 1200 40" preserveAspectRatio="none">
+                    <path d="M0,20 Q80,12 160,20 T320,20 T480,20 T640,20 T800,20 T960,20 T1200,20 L1200,40 L0,40 Z" fill="#93C5FD" opacity="0.3" />
+                  </svg>
+                </div>
+              </div>
 
             </div>
             
