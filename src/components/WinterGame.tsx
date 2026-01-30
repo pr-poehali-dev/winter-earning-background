@@ -177,86 +177,105 @@ const WinterGame = () => {
                 height: '600px',
               }}
             >
-              {/* Тень игрока (слева) - управляемая */}
+              {/* 3D игрок */}
               <div 
-                className={`absolute bottom-4 left-12 transition-all duration-300 ${playerAttacking ? 'translate-x-8 scale-110' : ''}`}
+                className={`absolute bottom-8 left-16 transition-all duration-300 ${playerAttacking ? 'translate-x-12 scale-110' : ''}`}
                 style={{ 
-                  perspective: '1000px',
+                  perspective: '1200px',
                   transformStyle: 'preserve-3d'
                 }}
               >
                 <div 
-                  className="relative group cursor-pointer hover:scale-110 transition-all duration-500"
+                  className="relative group cursor-pointer hover:scale-105 transition-all duration-500"
                   style={{
                     transformStyle: 'preserve-3d',
-                    transform: 'rotateY(-15deg) rotateX(5deg)',
+                    transform: 'rotateY(-20deg)',
                   }}
                 >
-                  {/* Силуэт тени с 3D эффектом */}
+                  {/* 3D персонаж - куб */}
                   <div 
-                    className="relative w-32 h-48"
+                    className="relative w-24 h-32"
                     style={{
                       transformStyle: 'preserve-3d',
-                      transform: 'translateZ(30px)',
+                      transform: 'translateZ(0px)',
                     }}
                   >
+                    {/* Передняя грань */}
                     <div 
-                      className={`absolute inset-0 bg-gradient-to-t from-black via-blue-950/90 to-transparent opacity-95 transition-all ${playerAttacking ? 'shadow-2xl shadow-cyan-500' : ''}`}
+                      className="absolute w-24 h-32 bg-gradient-to-b from-cyan-400 via-blue-500 to-blue-600 rounded-lg border-2 border-cyan-300 shadow-2xl"
                       style={{ 
-                        clipPath: 'polygon(30% 0%, 70% 0%, 85% 40%, 90% 100%, 10% 100%, 15% 40%)',
-                        filter: 'blur(3px) drop-shadow(0 0 20px rgba(59, 130, 246, 0.6))',
                         transform: 'translateZ(20px)',
+                        boxShadow: '0 0 30px rgba(34, 211, 238, 0.6)',
                       }}
                     >
+                      {/* Голова */}
+                      <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-cyan-300 to-cyan-500 rounded-lg border border-cyan-200"
+                        style={{ transform: 'translateX(-50%) translateZ(10px)' }}>
+                        {/* Глаза */}
+                        <div className="absolute top-3 left-2 w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                        <div className="absolute top-3 right-2 w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                        {/* Улыбка */}
+                        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-white rounded-full"></div>
+                      </div>
+                      
+                      {/* Тело */}
+                      <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-16 h-12 bg-gradient-to-b from-blue-500 to-blue-700 rounded-lg"></div>
                     </div>
-                    
-                    {/* 3D слои для глубины */}
+
+                    {/* Правая грань */}
                     <div 
-                      className="absolute inset-0 bg-gradient-to-t from-blue-900/30 via-blue-800/20 to-transparent"
+                      className="absolute w-16 h-32 bg-gradient-to-b from-blue-500 via-blue-600 to-blue-700 rounded-r-lg"
                       style={{ 
-                        clipPath: 'polygon(30% 0%, 70% 0%, 85% 40%, 90% 100%, 10% 100%, 15% 40%)',
-                        transform: 'translateZ(15px)',
-                        filter: 'blur(2px)',
+                        transform: 'rotateY(90deg) translateZ(12px) translateX(6px)',
+                        transformOrigin: 'right center',
                       }}
                     />
+
+                    {/* Верхняя грань */}
                     <div 
-                      className="absolute inset-0 bg-gradient-to-t from-cyan-900/20 via-cyan-800/10 to-transparent"
+                      className="absolute w-24 h-16 bg-gradient-to-b from-cyan-300 to-cyan-400 rounded-t-lg"
                       style={{ 
-                        clipPath: 'polygon(30% 0%, 70% 0%, 85% 40%, 90% 100%, 10% 100%, 15% 40%)',
-                        transform: 'translateZ(10px)',
-                        filter: 'blur(1px)',
+                        transform: 'rotateX(90deg) translateZ(16px) translateY(-8px)',
+                        transformOrigin: 'center top',
                       }}
                     />
-                    
-                    {/* Глаза */}
+
+                    {/* Светящаяся аура */}
                     <div 
-                      className="absolute top-8 left-1/2 transform -translate-x-1/2 flex gap-4"
-                      style={{ transform: 'translateX(-50%) translateZ(40px)' }}
-                    >
-                      <div className={`w-3 h-3 rounded-full bg-cyan-400 animate-pulse shadow-lg shadow-cyan-400/80 ${playerAttacking ? 'scale-150' : ''}`}></div>
-                      <div className={`w-3 h-3 rounded-full bg-cyan-400 animate-pulse shadow-lg shadow-cyan-400/80 ${playerAttacking ? 'scale-150' : ''}`}></div>
-                    </div>
-                    
-                    {/* Аура */}
-                    <div 
-                      className="absolute inset-0 bg-blue-500/10 rounded-full blur-xl animate-pulse"
-                      style={{ transform: 'translateZ(-10px) scale(1.2)' }}
-                    ></div>
-                    
+                      className="absolute inset-0 bg-cyan-400/20 rounded-lg blur-xl animate-pulse"
+                      style={{ 
+                        transform: 'translateZ(-10px) scale(1.3)',
+                      }}
+                    />
+
+                    {/* Эффект атаки */}
                     {playerAttacking && (
-                      <div 
-                        className="absolute top-1/2 -right-8 text-4xl animate-ping"
-                        style={{ transform: 'translateZ(50px)' }}
-                      >⚔️</div>
+                      <>
+                        <div 
+                          className="absolute -right-8 top-1/2 transform -translate-y-1/2 text-3xl animate-ping"
+                          style={{ transform: 'translateY(-50%) translateZ(50px)' }}
+                        >⚔️</div>
+                        <div 
+                          className="absolute inset-0 bg-yellow-400/30 rounded-lg animate-pulse"
+                          style={{ transform: 'translateZ(25px)' }}
+                        />
+                      </>
                     )}
                   </div>
-                  
+
+                  {/* Метка игрока */}
                   <div 
-                    className="absolute -top-4 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full text-xs text-white font-bold shadow-lg border border-cyan-300"
-                    style={{ transform: 'translateX(-50%) translateZ(60px)' }}
+                    className="absolute -top-6 left-1/2 transform -translate-x-1/2 px-4 py-1.5 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full text-xs text-white font-bold shadow-xl border-2 border-cyan-300"
+                    style={{ transform: 'translateX(-50%) translateZ(80px)' }}
                   >
                     ⚔️ ИГРОК
                   </div>
+
+                  {/* Тень под персонажем */}
+                  <div 
+                    className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-4 bg-black/40 rounded-full blur-sm"
+                    style={{ transform: 'translateX(-50%) translateZ(-20px)' }}
+                  />
                 </div>
               </div>
 
