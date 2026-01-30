@@ -180,17 +180,12 @@ const WinterGame = () => {
             </Button>
 
             <div
-              className="relative rounded-xl overflow-hidden mx-auto"
+              className="relative rounded-xl overflow-hidden mx-auto bg-white"
               style={{
-                backgroundImage: 'url(https://cdn.poehali.dev/projects/e2e3e1ec-61af-447a-9ddd-cd4c0b2a4b15/bucket/94c5b92d-e990-460f-b35c-76dd6b7fc854.jpg)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
                 width: '100%',
                 height: '600px',
               }}
             >
-              {/* Горный пейзаж */}
-              <div className="absolute inset-0 bg-gradient-to-b from-blue-900/40 via-transparent to-blue-950/60" />
               
               {/* Сундук с сокровищами */}
               <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2">
