@@ -7,6 +7,7 @@ const WinterGame = () => {
 
   const [showMap, setShowMap] = useState(false);
   const [showCityMap, setShowCityMap] = useState(false);
+  const [showMountainMap, setShowMountainMap] = useState(false);
 
   const [fightMode, setFightMode] = useState(false);
   const [playerHP, setPlayerHP] = useState(100);
@@ -148,7 +149,7 @@ const WinterGame = () => {
 
               {/* Второй круг - справа сверху */}
               <div className="absolute top-20 right-24">
-                <div className="relative group cursor-pointer">
+                <div className="relative group cursor-pointer" onClick={() => setShowMountainMap(true)}>
                   <div className="w-28 h-28 rounded-full bg-gradient-to-br from-green-400 via-emerald-300 to-green-500 flex items-center justify-center shadow-2xl border-4 border-green-600 transition-all duration-300 hover:scale-110 animate-pulse">
                     <Icon name="Mountain" size={48} className="text-white" />
                   </div>
@@ -164,6 +165,63 @@ const WinterGame = () => {
               <p className="text-lg text-muted-foreground">
                 Выбери город на карте, чтобы начать своё путешествие!
               </p>
+            </div>
+          </div>
+        ) : showMountainMap ? (
+          <div className="space-y-4">
+            <Button
+              onClick={() => setShowMountainMap(false)}
+              variant="outline"
+              className="border-2 mb-4"
+              size="lg"
+            >
+              <Icon name="ArrowLeft" size={20} className="mr-2" />
+              Назад к карте
+            </Button>
+
+            <div
+              className="relative rounded-xl overflow-hidden mx-auto"
+              style={{
+                backgroundImage: 'url(https://cdn.poehali.dev/projects/e2e3e1ec-61af-447a-9ddd-cd4c0b2a4b15/bucket/94c5b92d-e990-460f-b35c-76dd6b7fc854.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                width: '100%',
+                height: '600px',
+              }}
+            >
+              {/* Горный пейзаж */}
+              <div className="absolute inset-0 bg-gradient-to-b from-blue-900/40 via-transparent to-blue-950/60" />
+              
+              {/* Сундук с сокровищами */}
+              <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2">
+                <div className="relative group cursor-pointer hover:scale-110 transition-all duration-500">
+                  <div className="w-32 h-24 bg-gradient-to-br from-yellow-700 via-yellow-600 to-yellow-800 rounded-lg border-4 border-yellow-900 shadow-2xl">
+                    <div className="absolute inset-2 border-2 border-yellow-400 rounded-md" />
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-8 bg-yellow-900 rounded-sm" />
+                    <div className="text-4xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">💎</div>
+                  </div>
+                  <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 px-4 py-2 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full text-sm text-white font-bold shadow-xl border-2 border-yellow-300 whitespace-nowrap">
+                    🏆 Сокровище горы
+                  </div>
+                  <div className="absolute inset-0 bg-yellow-400/20 rounded-lg blur-xl animate-pulse" />
+                </div>
+              </div>
+            </div>
+            
+            <div className="text-center space-y-4 p-8 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-xl border-2 border-green-400">
+              <h3 className="text-3xl font-bold text-white">⛰️ Заснеженные горы</h3>
+              <p className="text-lg text-white/90">
+                Ты нашёл легендарное сокровище в горах! Здесь скрыты древние артефакты и сила природы.
+              </p>
+              <div className="flex gap-4 justify-center pt-4">
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-green-600 via-emerald-500 to-green-600 hover:from-green-500 hover:via-emerald-400 hover:to-green-500 text-white font-bold shadow-2xl shadow-green-500/50 border-2 border-green-300"
+                >
+                  <Icon name="Gift" size={20} className="mr-2" />
+                  Забрать награду
+                </Button>
+              </div>
             </div>
           </div>
         ) : showCityMap ? (
