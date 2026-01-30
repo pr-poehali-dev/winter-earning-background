@@ -180,12 +180,26 @@ const WinterGame = () => {
             </Button>
 
             <div
-              className="relative rounded-xl overflow-hidden mx-auto bg-white"
+              className="relative rounded-xl overflow-hidden mx-auto"
               style={{
                 width: '100%',
                 height: '600px',
+                background: 'linear-gradient(to bottom, #87CEEB 0%, #E0F6FF 100%)',
               }}
             >
+              {/* Облака */}
+              <div className="absolute top-12 left-20 w-32 h-16 bg-white/90 rounded-full blur-sm animate-pulse" style={{ animationDuration: '4s' }} />
+              <div className="absolute top-20 left-16 w-24 h-12 bg-white/80 rounded-full blur-sm" />
+              
+              <div className="absolute top-24 right-32 w-40 h-20 bg-white/90 rounded-full blur-sm animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
+              <div className="absolute top-28 right-28 w-28 h-14 bg-white/80 rounded-full blur-sm" />
+              
+              <div className="absolute top-40 left-1/2 transform -translate-x-1/2 w-36 h-18 bg-white/85 rounded-full blur-sm animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }} />
+              <div className="absolute top-44 left-1/2 transform -translate-x-1/2 w-24 h-12 bg-white/75 rounded-full blur-sm" />
+
+              <div className="absolute top-16 right-16 w-28 h-14 bg-white/80 rounded-full blur-sm animate-pulse" style={{ animationDuration: '5.5s', animationDelay: '0.5s' }} />
+              
+              <div className="absolute top-60 left-24 w-32 h-16 bg-white/70 rounded-full blur-sm animate-pulse" style={{ animationDuration: '7s', animationDelay: '1.5s' }} />
 
             </div>
             
