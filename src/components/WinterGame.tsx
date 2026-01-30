@@ -214,55 +214,94 @@ const WinterGame = () => {
                 </div>
               </div>
 
-              {/* Земля */}
-              <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-green-600 via-green-700 to-green-800">
-                {/* Трава */}
-                <div className="absolute top-0 left-0 right-0 h-3 bg-green-500"></div>
-                <div className="absolute top-1 left-0 right-0">
-                  {[...Array(30)].map((_, i) => (
-                    <div 
-                      key={i}
-                      className="absolute w-1 h-4 bg-green-400"
-                      style={{ 
-                        left: `${i * 3.5}%`, 
-                        top: '-8px',
-                        transform: `rotate(${Math.random() * 20 - 10}deg)`,
-                      }}
-                    />
-                  ))}
-                </div>
-                {/* Текстура земли */}
-                <div className="absolute inset-0 opacity-20">
-                  {[...Array(40)].map((_, i) => (
-                    <div 
-                      key={i}
-                      className="absolute w-2 h-2 bg-amber-900 rounded-full"
-                      style={{ 
-                        left: `${Math.random() * 100}%`, 
-                        top: `${Math.random() * 100}%`,
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
-
               {/* Море с волнами */}
-              <div className="absolute bottom-48 left-0 right-0 h-64 bg-gradient-to-b from-blue-400 via-blue-500 to-blue-600">
+              <div className="absolute bottom-0 left-0 right-0 h-96 bg-gradient-to-b from-blue-400 via-blue-500 to-blue-600"
+                   style={{ 
+                     perspective: '1000px',
+                     transformStyle: 'preserve-3d',
+                   }}>
                 {/* Волны */}
-                <div className="absolute top-0 left-0 right-0">
+                <div className="absolute top-0 left-0 right-0"
+                     style={{ transform: 'translateZ(10px)' }}>
                   <svg width="100%" height="60" viewBox="0 0 1200 60" preserveAspectRatio="none">
                     <path d="M0,30 Q150,10 300,30 T600,30 T900,30 T1200,30 L1200,60 L0,60 Z" fill="#3B82F6" opacity="0.5" />
                   </svg>
                 </div>
-                <div className="absolute top-4 left-0 right-0">
+                <div className="absolute top-4 left-0 right-0"
+                     style={{ transform: 'translateZ(15px)' }}>
                   <svg width="100%" height="50" viewBox="0 0 1200 50" preserveAspectRatio="none">
                     <path d="M0,25 Q100,15 200,25 T400,25 T600,25 T800,25 T1000,25 T1200,25 L1200,50 L0,50 Z" fill="#60A5FA" opacity="0.4" />
                   </svg>
                 </div>
-                <div className="absolute top-8 left-0 right-0">
+                <div className="absolute top-8 left-0 right-0"
+                     style={{ transform: 'translateZ(20px)' }}>
                   <svg width="100%" height="40" viewBox="0 0 1200 40" preserveAspectRatio="none">
                     <path d="M0,20 Q80,12 160,20 T320,20 T480,20 T640,20 T800,20 T960,20 T1200,20 L1200,40 L0,40 Z" fill="#93C5FD" opacity="0.3" />
                   </svg>
+                </div>
+              </div>
+
+              {/* Земля с берегом */}
+              <div className="absolute bottom-0 left-0 right-0 h-32"
+                   style={{ 
+                     perspective: '1200px',
+                     transformStyle: 'preserve-3d',
+                   }}>
+                {/* Песок на берегу */}
+                <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-yellow-200 via-yellow-300 to-yellow-400"
+                     style={{ 
+                       transform: 'translateZ(25px) rotateX(-2deg)',
+                       transformOrigin: 'bottom',
+                     }}>
+                  {/* Текстура песка */}
+                  <div className="absolute inset-0 opacity-30">
+                    {[...Array(50)].map((_, i) => (
+                      <div 
+                        key={i}
+                        className="absolute w-1 h-1 bg-yellow-600 rounded-full"
+                        style={{ 
+                          left: `${Math.random() * 100}%`, 
+                          top: `${Math.random() * 100}%`,
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Земля */}
+                <div className="absolute top-12 left-0 right-0 h-20 bg-gradient-to-b from-green-600 via-green-700 to-green-800"
+                     style={{ 
+                       transform: 'translateZ(30px) rotateX(-3deg)',
+                       transformOrigin: 'bottom',
+                     }}>
+                  {/* Трава */}
+                  <div className="absolute top-0 left-0 right-0 h-2 bg-green-500"></div>
+                  <div className="absolute top-0 left-0 right-0">
+                    {[...Array(40)].map((_, i) => (
+                      <div 
+                        key={i}
+                        className="absolute w-1 h-3 bg-green-400"
+                        style={{ 
+                          left: `${i * 2.5}%`, 
+                          top: '-6px',
+                          transform: `rotate(${Math.random() * 20 - 10}deg) translateZ(2px)`,
+                        }}
+                      />
+                    ))}
+                  </div>
+                  {/* Текстура земли */}
+                  <div className="absolute inset-0 opacity-20">
+                    {[...Array(30)].map((_, i) => (
+                      <div 
+                        key={i}
+                        className="absolute w-2 h-2 bg-amber-900 rounded-full"
+                        style={{ 
+                          left: `${Math.random() * 100}%`, 
+                          top: `${Math.random() * 100}%`,
+                        }}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
 
