@@ -192,59 +192,101 @@ const WinterGame = () => {
                     transform: 'rotateY(-20deg)',
                   }}
                 >
-                  {/* 3D персонаж - куб */}
+                  {/* 3D человечек */}
                   <div 
-                    className="relative w-24 h-32"
+                    className="relative w-20 h-40"
                     style={{
                       transformStyle: 'preserve-3d',
                       transform: 'translateZ(0px)',
                     }}
                   >
-                    {/* Передняя грань */}
+                    {/* Голова */}
                     <div 
-                      className="absolute w-24 h-32 bg-gradient-to-b from-cyan-400 via-blue-500 to-blue-600 rounded-lg border-2 border-cyan-300 shadow-2xl"
+                      className="absolute top-0 left-1/2 transform -translate-x-1/2 w-10 h-10 bg-gradient-to-br from-cyan-300 via-cyan-400 to-cyan-500 rounded-full border-2 border-cyan-200 shadow-lg"
                       style={{ 
-                        transform: 'translateZ(20px)',
-                        boxShadow: '0 0 30px rgba(34, 211, 238, 0.6)',
+                        transform: 'translateX(-50%) translateZ(25px)',
+                        boxShadow: '0 0 20px rgba(34, 211, 238, 0.5)',
                       }}
                     >
-                      {/* Голова */}
-                      <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-cyan-300 to-cyan-500 rounded-lg border border-cyan-200"
-                        style={{ transform: 'translateX(-50%) translateZ(10px)' }}>
-                        {/* Глаза */}
-                        <div className="absolute top-3 left-2 w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                        <div className="absolute top-3 right-2 w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                        {/* Улыбка */}
-                        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-white rounded-full"></div>
+                      {/* Глаза */}
+                      <div className="absolute top-3 left-2 w-2 h-2 bg-white rounded-full shadow-sm">
+                        <div className="w-1 h-1 bg-blue-900 rounded-full ml-0.5 mt-0.5"></div>
                       </div>
-                      
-                      {/* Тело */}
-                      <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-16 h-12 bg-gradient-to-b from-blue-500 to-blue-700 rounded-lg"></div>
+                      <div className="absolute top-3 right-2 w-2 h-2 bg-white rounded-full shadow-sm">
+                        <div className="w-1 h-1 bg-blue-900 rounded-full ml-0.5 mt-0.5"></div>
+                      </div>
+                      {/* Улыбка */}
+                      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-5 h-2 border-b-2 border-white rounded-b-full"></div>
                     </div>
 
-                    {/* Правая грань */}
+                    {/* Тело */}
                     <div 
-                      className="absolute w-16 h-32 bg-gradient-to-b from-blue-500 via-blue-600 to-blue-700 rounded-r-lg"
+                      className="absolute top-11 left-1/2 transform -translate-x-1/2 w-12 h-16 bg-gradient-to-b from-blue-400 via-blue-500 to-blue-600 rounded-2xl border-2 border-blue-300 shadow-xl"
                       style={{ 
-                        transform: 'rotateY(90deg) translateZ(12px) translateX(6px)',
-                        transformOrigin: 'right center',
+                        transform: 'translateX(-50%) translateZ(20px)',
+                        boxShadow: '0 0 25px rgba(59, 130, 246, 0.4)',
+                      }}
+                    >
+                      {/* Детали костюма */}
+                      <div className="absolute top-1 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-cyan-300 rounded-full"></div>
+                      <div className="absolute top-3 left-2 w-1.5 h-1.5 bg-cyan-300 rounded-full"></div>
+                      <div className="absolute top-3 right-2 w-1.5 h-1.5 bg-cyan-300 rounded-full"></div>
+                    </div>
+
+                    {/* Левая рука */}
+                    <div 
+                      className={`absolute top-13 left-1 w-3 h-12 bg-gradient-to-b from-blue-400 to-blue-500 rounded-lg border border-blue-300 shadow-md transition-all duration-300 ${playerAttacking ? 'rotate-45' : ''}`}
+                      style={{ 
+                        transform: 'translateZ(18px)',
+                        transformOrigin: 'top center',
                       }}
                     />
 
-                    {/* Верхняя грань */}
+                    {/* Правая рука */}
                     <div 
-                      className="absolute w-24 h-16 bg-gradient-to-b from-cyan-300 to-cyan-400 rounded-t-lg"
+                      className={`absolute top-13 right-1 w-3 h-12 bg-gradient-to-b from-blue-400 to-blue-500 rounded-lg border border-blue-300 shadow-md transition-all duration-300 ${playerAttacking ? '-rotate-45 scale-110' : ''}`}
                       style={{ 
-                        transform: 'rotateX(90deg) translateZ(16px) translateY(-8px)',
-                        transformOrigin: 'center top',
+                        transform: 'translateZ(18px)',
+                        transformOrigin: 'top center',
+                      }}
+                    />
+
+                    {/* Левая нога */}
+                    <div 
+                      className="absolute bottom-0 left-4 w-3 h-14 bg-gradient-to-b from-blue-600 to-blue-700 rounded-lg border border-blue-400 shadow-md"
+                      style={{ 
+                        transform: 'translateZ(15px)',
+                      }}
+                    >
+                      {/* Ботинок */}
+                      <div className="absolute -bottom-1 -left-1 w-5 h-3 bg-cyan-600 rounded-full"></div>
+                    </div>
+
+                    {/* Правая нога */}
+                    <div 
+                      className="absolute bottom-0 right-4 w-3 h-14 bg-gradient-to-b from-blue-600 to-blue-700 rounded-lg border border-blue-400 shadow-md"
+                      style={{ 
+                        transform: 'translateZ(15px)',
+                      }}
+                    >
+                      {/* Ботинок */}
+                      <div className="absolute -bottom-1 -right-1 w-5 h-3 bg-cyan-600 rounded-full"></div>
+                    </div>
+
+                    {/* 3D глубина - боковые части */}
+                    <div 
+                      className="absolute top-11 left-1/2 transform -translate-x-1/2 w-10 h-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-r-2xl opacity-60"
+                      style={{ 
+                        transform: 'translateX(-50%) rotateY(90deg) translateZ(6px)',
+                        transformOrigin: 'left center',
                       }}
                     />
 
                     {/* Светящаяся аура */}
                     <div 
-                      className="absolute inset-0 bg-cyan-400/20 rounded-lg blur-xl animate-pulse"
+                      className="absolute inset-0 bg-cyan-400/20 rounded-full blur-2xl animate-pulse"
                       style={{ 
-                        transform: 'translateZ(-10px) scale(1.3)',
+                        transform: 'translateZ(-10px) scale(1.5)',
                       }}
                     />
 
@@ -252,13 +294,15 @@ const WinterGame = () => {
                     {playerAttacking && (
                       <>
                         <div 
-                          className="absolute -right-8 top-1/2 transform -translate-y-1/2 text-3xl animate-ping"
-                          style={{ transform: 'translateY(-50%) translateZ(50px)' }}
+                          className="absolute -right-10 top-16 text-4xl animate-ping"
+                          style={{ transform: 'translateZ(50px)' }}
                         >⚔️</div>
                         <div 
-                          className="absolute inset-0 bg-yellow-400/30 rounded-lg animate-pulse"
-                          style={{ transform: 'translateZ(25px)' }}
+                          className="absolute top-11 left-1/2 transform -translate-x-1/2 w-12 h-16 bg-yellow-400/40 rounded-2xl animate-pulse"
+                          style={{ transform: 'translateX(-50%) translateZ(25px)' }}
                         />
+                        <div className="absolute top-13 right-0 w-4 h-1 bg-yellow-300 rounded-full animate-ping" style={{ transform: 'translateZ(30px)' }}></div>
+                        <div className="absolute top-16 right-1 w-3 h-1 bg-yellow-400 rounded-full animate-ping" style={{ transform: 'translateZ(32px)', animationDelay: '0.1s' }}></div>
                       </>
                     )}
                   </div>
