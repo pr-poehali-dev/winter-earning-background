@@ -325,7 +325,7 @@ const WinterGame = () => {
               </div>
             )}
           </div>
-        )}
+        ) : null}
       </CardContent>
     </Card>
   );
