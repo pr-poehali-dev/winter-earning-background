@@ -178,28 +178,83 @@ const WinterGame = () => {
               }}
             >
               {/* Тень игрока (слева) - управляемая */}
-              <div className={`absolute bottom-4 left-12 transition-all duration-300 ${playerAttacking ? 'translate-x-8 scale-110' : ''}`}>
-                <div className="relative">
-                  {/* Силуэт тени с эффектом дыма */}
-                  <div className="relative w-32 h-48">
-                    <div className={`absolute inset-0 bg-gradient-to-t from-black via-blue-950/90 to-transparent opacity-95 transition-all ${playerAttacking ? 'shadow-2xl shadow-cyan-500' : ''}`}
-                         style={{ 
-                           clipPath: 'polygon(30% 0%, 70% 0%, 85% 40%, 90% 100%, 10% 100%, 15% 40%)',
-                           filter: 'blur(3px) drop-shadow(0 0 20px rgba(59, 130, 246, 0.6))'
-                         }}>
+              <div 
+                className={`absolute bottom-4 left-12 transition-all duration-300 ${playerAttacking ? 'translate-x-8 scale-110' : ''}`}
+                style={{ 
+                  perspective: '1000px',
+                  transformStyle: 'preserve-3d'
+                }}
+              >
+                <div 
+                  className="relative group cursor-pointer hover:scale-110 transition-all duration-500"
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    transform: 'rotateY(-15deg) rotateX(5deg)',
+                  }}
+                >
+                  {/* Силуэт тени с 3D эффектом */}
+                  <div 
+                    className="relative w-32 h-48"
+                    style={{
+                      transformStyle: 'preserve-3d',
+                      transform: 'translateZ(30px)',
+                    }}
+                  >
+                    <div 
+                      className={`absolute inset-0 bg-gradient-to-t from-black via-blue-950/90 to-transparent opacity-95 transition-all ${playerAttacking ? 'shadow-2xl shadow-cyan-500' : ''}`}
+                      style={{ 
+                        clipPath: 'polygon(30% 0%, 70% 0%, 85% 40%, 90% 100%, 10% 100%, 15% 40%)',
+                        filter: 'blur(3px) drop-shadow(0 0 20px rgba(59, 130, 246, 0.6))',
+                        transform: 'translateZ(20px)',
+                      }}
+                    >
                     </div>
+                    
+                    {/* 3D слои для глубины */}
+                    <div 
+                      className="absolute inset-0 bg-gradient-to-t from-blue-900/30 via-blue-800/20 to-transparent"
+                      style={{ 
+                        clipPath: 'polygon(30% 0%, 70% 0%, 85% 40%, 90% 100%, 10% 100%, 15% 40%)',
+                        transform: 'translateZ(15px)',
+                        filter: 'blur(2px)',
+                      }}
+                    />
+                    <div 
+                      className="absolute inset-0 bg-gradient-to-t from-cyan-900/20 via-cyan-800/10 to-transparent"
+                      style={{ 
+                        clipPath: 'polygon(30% 0%, 70% 0%, 85% 40%, 90% 100%, 10% 100%, 15% 40%)',
+                        transform: 'translateZ(10px)',
+                        filter: 'blur(1px)',
+                      }}
+                    />
+                    
                     {/* Глаза */}
-                    <div className="absolute top-8 left-1/2 transform -translate-x-1/2 flex gap-4">
+                    <div 
+                      className="absolute top-8 left-1/2 transform -translate-x-1/2 flex gap-4"
+                      style={{ transform: 'translateX(-50%) translateZ(40px)' }}
+                    >
                       <div className={`w-3 h-3 rounded-full bg-cyan-400 animate-pulse shadow-lg shadow-cyan-400/80 ${playerAttacking ? 'scale-150' : ''}`}></div>
                       <div className={`w-3 h-3 rounded-full bg-cyan-400 animate-pulse shadow-lg shadow-cyan-400/80 ${playerAttacking ? 'scale-150' : ''}`}></div>
                     </div>
+                    
                     {/* Аура */}
-                    <div className="absolute inset-0 bg-blue-500/10 rounded-full blur-xl animate-pulse"></div>
+                    <div 
+                      className="absolute inset-0 bg-blue-500/10 rounded-full blur-xl animate-pulse"
+                      style={{ transform: 'translateZ(-10px) scale(1.2)' }}
+                    ></div>
+                    
                     {playerAttacking && (
-                      <div className="absolute top-1/2 -right-8 text-4xl animate-ping">⚔️</div>
+                      <div 
+                        className="absolute top-1/2 -right-8 text-4xl animate-ping"
+                        style={{ transform: 'translateZ(50px)' }}
+                      >⚔️</div>
                     )}
                   </div>
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full text-xs text-white font-bold shadow-lg border border-cyan-300">
+                  
+                  <div 
+                    className="absolute -top-4 left-1/2 transform -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full text-xs text-white font-bold shadow-lg border border-cyan-300"
+                    style={{ transform: 'translateX(-50%) translateZ(60px)' }}
+                  >
                     ⚔️ ИГРОК
                   </div>
                 </div>
