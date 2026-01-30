@@ -214,8 +214,40 @@ const WinterGame = () => {
                 </div>
               </div>
 
+              {/* Земля */}
+              <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-green-600 via-green-700 to-green-800">
+                {/* Трава */}
+                <div className="absolute top-0 left-0 right-0 h-3 bg-green-500"></div>
+                <div className="absolute top-1 left-0 right-0">
+                  {[...Array(30)].map((_, i) => (
+                    <div 
+                      key={i}
+                      className="absolute w-1 h-4 bg-green-400"
+                      style={{ 
+                        left: `${i * 3.5}%`, 
+                        top: '-8px',
+                        transform: `rotate(${Math.random() * 20 - 10}deg)`,
+                      }}
+                    />
+                  ))}
+                </div>
+                {/* Текстура земли */}
+                <div className="absolute inset-0 opacity-20">
+                  {[...Array(40)].map((_, i) => (
+                    <div 
+                      key={i}
+                      className="absolute w-2 h-2 bg-amber-900 rounded-full"
+                      style={{ 
+                        left: `${Math.random() * 100}%`, 
+                        top: `${Math.random() * 100}%`,
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+
               {/* Море с волнами */}
-              <div className="absolute bottom-0 left-0 right-0 h-80 bg-gradient-to-b from-blue-400 via-blue-500 to-blue-600">
+              <div className="absolute bottom-48 left-0 right-0 h-64 bg-gradient-to-b from-blue-400 via-blue-500 to-blue-600">
                 {/* Волны */}
                 <div className="absolute top-0 left-0 right-0">
                   <svg width="100%" height="60" viewBox="0 0 1200 60" preserveAspectRatio="none">
