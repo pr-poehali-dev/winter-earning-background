@@ -1,21 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 
 const WinterGame = () => {
-
-  const [showMap, setShowMap] = useState(false);
-  const [showCityMap, setShowCityMap] = useState(false);
-  const [showMountainMap, setShowMountainMap] = useState(false);
-
-  const [fightMode, setFightMode] = useState(false);
-  const [playerHP, setPlayerHP] = useState(100);
-  const [enemyHP, setEnemyHP] = useState(100);
-  const [playerAttacking, setPlayerAttacking] = useState(false);
-  const [enemyAttacking, setEnemyAttacking] = useState(false);
-  const [battleLog, setBattleLog] = useState<string[]>([]);
-
   // Зомби Ферма
   const [isNight, setIsNight] = useState(false);
 
@@ -26,41 +13,6 @@ const WinterGame = () => {
     }, 10000);
     return () => clearInterval(interval);
   }, []);
-
-
-
-
-  const startFight = () => {
-    setFightMode(true);
-    setPlayerHP(100);
-    setEnemyHP(100);
-    setBattleLog(['Бой начался!']);
-  };
-
-  const playerAttack = () => {
-    if (playerAttacking || enemyHP <= 0 || playerHP <= 0) return;
-    
-    setPlayerAttacking(true);
-    const damage = Math.floor(Math.random() * 20) + 10;
-    setEnemyHP(prev => Math.max(0, prev - damage));
-    setBattleLog(prev => [...prev, `⚔️ Ты нанёс ${damage} урона!`]);
-    
-    setTimeout(() => {
-      setPlayerAttacking(false);
-      if (enemyHP - damage > 0) {
-        enemyAttackBack();
-      }
-    }, 500);
-  };
-
-  const enemyAttackBack = () => {
-    setEnemyAttacking(true);
-    const damage = Math.floor(Math.random() * 15) + 8;
-    setPlayerHP(prev => Math.max(0, prev - damage));
-    setBattleLog(prev => [...prev, `💀 Противник нанёс ${damage} урона!`]);
-    
-    setTimeout(() => setEnemyAttacking(false), 500);
-  };
 
 
 
