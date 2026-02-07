@@ -285,14 +285,15 @@ const WinterGame = () => {
                   </div>
                 )}
 
-                {/* Изометрическая сетка земли */}
+                {/* 3D Изометрическая сетка земли */}
                 <div className="absolute inset-0 flex items-center justify-center"
                      style={{
-                       transform: 'rotateX(60deg) rotateZ(45deg)',
+                       transform: 'rotateX(55deg) rotateZ(45deg) scale(1.2)',
                        transformStyle: 'preserve-3d',
+                       transformOrigin: 'center center',
                      }}>
                   
-                  {/* МОРЕ - изометрия */}
+                  {/* МОРЕ - 3D */}
                   <div className="absolute" style={{
                     width: '400px',
                     height: '400px',
@@ -301,7 +302,11 @@ const WinterGame = () => {
                     background: isNight 
                       ? 'linear-gradient(135deg, #1e40af 0%, #1e3a8a 50%, #1e293b 100%)'
                       : 'linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%)',
-                    transform: 'translateZ(-50px)',
+                    transform: 'translateZ(-80px) rotateX(2deg)',
+                    transformStyle: 'preserve-3d',
+                    boxShadow: isNight 
+                      ? '0 30px 60px rgba(30, 64, 175, 0.6), inset 0 -20px 40px rgba(0,0,0,0.3)'
+                      : '0 30px 60px rgba(59, 130, 246, 0.6), inset 0 -20px 40px rgba(0,0,0,0.2)',
                   }}>
                     {/* Волны на море */}
                     {[...Array(8)].map((_, i) => (
@@ -318,14 +323,16 @@ const WinterGame = () => {
                     ))}
                   </div>
 
-                  {/* ПЕСОК - изометрия */}
+                  {/* ПЕСОК - 3D */}
                   <div className="absolute" style={{
                     width: '500px',
                     height: '200px',
                     bottom: '-50px',
                     left: '-100px',
                     background: 'linear-gradient(135deg, #fef3c7 0%, #fde047 50%, #facc15 100%)',
-                    transform: 'translateZ(-20px)',
+                    transform: 'translateZ(-40px) rotateX(1deg)',
+                    transformStyle: 'preserve-3d',
+                    boxShadow: '0 25px 50px rgba(250, 204, 21, 0.4), inset 0 -10px 30px rgba(180, 83, 9, 0.2)',
                   }}>
                     {/* Песчинки */}
                     {[...Array(50)].map((_, i) => (
@@ -342,7 +349,7 @@ const WinterGame = () => {
                     ))}
                   </div>
 
-                  {/* ТРАВА - изометрия */}
+                  {/* ТРАВА - 3D */}
                   <div className="absolute" style={{
                     width: '600px',
                     height: '600px',
@@ -351,7 +358,11 @@ const WinterGame = () => {
                     background: isNight
                       ? 'linear-gradient(135deg, #15803d 0%, #166534 50%, #14532d 100%)'
                       : 'linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%)',
-                    transform: 'translateZ(0px)',
+                    transform: 'translateZ(10px) rotateX(-1deg)',
+                    transformStyle: 'preserve-3d',
+                    boxShadow: isNight
+                      ? '0 20px 60px rgba(21, 128, 61, 0.5), inset 0 -15px 40px rgba(0,0,0,0.4)'
+                      : '0 20px 60px rgba(34, 197, 94, 0.5), inset 0 -15px 40px rgba(0,0,0,0.3)',
                   }}>
                     {/* Травинки */}
                     {[...Array(100)].map((_, i) => (
@@ -385,7 +396,7 @@ const WinterGame = () => {
                       />
                     ))}
 
-                    {/* Деревья изометрические */}
+                    {/* Деревья 3D */}
                     {[...Array(12)].map((_, i) => (
                       <div 
                         key={`tree-${i}`}
@@ -393,39 +404,49 @@ const WinterGame = () => {
                         style={{
                           left: `${10 + (i * 8)}%`,
                           top: `${10 + ((i % 3) * 30)}%`,
-                          transform: 'translateZ(20px)',
+                          transform: `translateZ(${25 + i * 3}px)`,
+                          transformStyle: 'preserve-3d',
                         }}
                       >
-                        {/* Ствол */}
+                        {/* Ствол 3D */}
                         <div style={{
                           width: '8px',
                           height: '40px',
-                          background: 'linear-gradient(to right, #92400e 0%, #78350f 100%)',
+                          background: 'linear-gradient(to right, #92400e 0%, #78350f 50%, #451a03 100%)',
                           margin: '0 auto',
+                          boxShadow: '2px 4px 8px rgba(0,0,0,0.4), inset -1px 0 2px rgba(0,0,0,0.3)',
+                          transform: 'rotateY(5deg)',
                         }}></div>
-                        {/* Крона изометрическая */}
+                        {/* Крона 3D */}
                         <div style={{
                           position: 'absolute',
                           top: '-20px',
                           left: '-12px',
                           width: '32px',
                           height: '32px',
-                          background: isNight ? '#15803d' : '#22c55e',
+                          background: isNight 
+                            ? 'linear-gradient(135deg, #15803d 0%, #166534 50%, #14532d 100%)' 
+                            : 'linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%)',
                           clipPath: 'polygon(50% 0%, 0% 50%, 50% 100%, 100% 50%)',
+                          boxShadow: '3px 6px 12px rgba(0,0,0,0.5)',
+                          transform: 'translateZ(10px)',
                         }}></div>
                       </div>
                     ))}
                   </div>
 
-                  {/* ГОРА - изометрия */}
+                  {/* ГОРА - 3D */}
                   <div className="absolute" style={{
                     width: '250px',
                     height: '300px',
                     bottom: '250px',
                     right: '100px',
                     clipPath: 'polygon(50% 0%, 100% 70%, 80% 100%, 20% 100%, 0% 70%)',
-                    background: 'linear-gradient(135deg, #78716c 0%, #57534e 50%, #44403c 100%)',
-                    transform: 'translateZ(50px)',
+                    background: 'linear-gradient(135deg, #a8a29e 0%, #78716c 30%, #57534e 60%, #44403c 100%)',
+                    transform: 'translateZ(80px) rotateY(-3deg)',
+                    transformStyle: 'preserve-3d',
+                    boxShadow: '10px 20px 50px rgba(0,0,0,0.6), inset -5px -5px 30px rgba(0,0,0,0.5)',
+                    filter: 'brightness(1.1)',
                   }}>
                     {/* Трава на горе */}
                     <div className="absolute bottom-0 left-0 right-0 h-24">
@@ -461,7 +482,7 @@ const WinterGame = () => {
                       />
                     ))}
 
-                    {/* Деревья на горе */}
+                    {/* Деревья на горе 3D */}
                     {[...Array(6)].map((_, i) => (
                       <div 
                         key={i}
@@ -469,13 +490,16 @@ const WinterGame = () => {
                         style={{
                           left: `${30 + (i * 10)}%`,
                           top: `${50 + (i * 7)}%`,
+                          transform: `translateZ(${15 + i * 5}px)`,
+                          transformStyle: 'preserve-3d',
                         }}
                       >
                         <div style={{
                           width: '6px',
                           height: '30px',
-                          background: '#78350f',
+                          background: 'linear-gradient(to right, #92400e 0%, #78350f 50%, #451a03 100%)',
                           margin: '0 auto',
+                          boxShadow: '2px 3px 6px rgba(0,0,0,0.5)',
                         }}></div>
                         <div style={{
                           position: 'absolute',
@@ -483,56 +507,92 @@ const WinterGame = () => {
                           left: '-10px',
                           width: '26px',
                           height: '26px',
-                          background: isNight ? '#166534' : '#16a34a',
+                          background: isNight 
+                            ? 'linear-gradient(135deg, #166534 0%, #15803d 50%, #14532d 100%)' 
+                            : 'linear-gradient(135deg, #16a34a 0%, #15803d 50%, #166534 100%)',
                           clipPath: 'polygon(50% 0%, 0% 50%, 50% 100%, 100% 50%)',
+                          boxShadow: '2px 4px 8px rgba(0,0,0,0.6)',
+                          transform: 'translateZ(8px)',
                         }}></div>
                       </div>
                     ))}
                   </div>
 
-                  {/* ЗОМБИ изометрический */}
+                  {/* ЗОМБИ 3D */}
                   <div 
                     className="absolute transition-all duration-2000 ease-in-out"
                     style={{
                       left: `${zombiePosition.x}%`,
                       top: `${zombiePosition.y}%`,
-                      transform: `translateZ(${30}px)`,
+                      transform: `translateZ(100px) rotateX(-5deg)`,
+                      transformStyle: 'preserve-3d',
                       zIndex: 100,
                     }}
                   >
-                    <div className="relative">
-                      {/* Тело зомби изометрия */}
+                    <div className="relative" style={{ transformStyle: 'preserve-3d' }}>
+                      {/* Тело зомби 3D */}
                       <div style={{
                         width: '24px',
                         height: '36px',
-                        background: 'linear-gradient(135deg, #4ade80 0%, #22c55e 50%, #16a34a 100%)',
+                        background: 'linear-gradient(135deg, #4ade80 0%, #22c55e 40%, #16a34a 80%, #15803d 100%)',
                         position: 'relative',
                         clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-                        boxShadow: isNight ? '0 0 20px rgba(74, 222, 128, 0.8)' : 'none',
+                        boxShadow: isNight 
+                          ? '0 0 30px rgba(74, 222, 128, 0.9), 0 8px 20px rgba(0,0,0,0.7), inset -2px -2px 10px rgba(0,0,0,0.5)' 
+                          : '0 8px 20px rgba(0,0,0,0.6), inset -2px -2px 10px rgba(0,0,0,0.4)',
+                        transform: 'translateZ(10px)',
+                        filter: 'brightness(1.1)',
                       }}>
-                        {/* Голова */}
+                        {/* Голова 3D */}
                         <div style={{
                           position: 'absolute',
                           top: '-16px',
                           left: '2px',
                           width: '20px',
                           height: '20px',
-                          background: '#16a34a',
+                          background: 'linear-gradient(135deg, #16a34a 0%, #15803d 50%, #166534 100%)',
                           clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+                          boxShadow: '0 4px 12px rgba(0,0,0,0.7), inset -1px -1px 6px rgba(0,0,0,0.5)',
+                          transform: 'translateZ(12px)',
                         }}>
-                          {/* Глаза */}
-                          <div className="absolute top-1 left-1 w-2 h-2 bg-red-600 rounded-full animate-pulse"></div>
-                          <div className="absolute top-1 right-1 w-2 h-2 bg-red-600 rounded-full animate-pulse"></div>
+                          {/* Глаза светящиеся */}
+                          <div className="absolute top-1 left-1 w-2 h-2 rounded-full animate-pulse"
+                               style={{
+                                 background: 'radial-gradient(circle, #ef4444 0%, #dc2626 50%, #991b1b 100%)',
+                                 boxShadow: isNight 
+                                   ? '0 0 8px rgba(239, 68, 68, 1), 0 0 12px rgba(239, 68, 68, 0.8)' 
+                                   : '0 0 6px rgba(239, 68, 68, 0.9)',
+                               }}></div>
+                          <div className="absolute top-1 right-1 w-2 h-2 rounded-full animate-pulse"
+                               style={{
+                                 background: 'radial-gradient(circle, #ef4444 0%, #dc2626 50%, #991b1b 100%)',
+                                 boxShadow: isNight 
+                                   ? '0 0 8px rgba(239, 68, 68, 1), 0 0 12px rgba(239, 68, 68, 0.8)' 
+                                   : '0 0 6px rgba(239, 68, 68, 0.9)',
+                               }}></div>
                         </div>
                         
-                        {/* Руки */}
-                        <div className="absolute top-2 -left-2 w-2 h-8 bg-green-600 transform -rotate-12"></div>
-                        <div className="absolute top-2 -right-2 w-2 h-8 bg-green-600 transform rotate-12"></div>
+                        {/* Руки 3D */}
+                        <div className="absolute top-2 -left-2 w-2 h-8 rounded-sm"
+                             style={{
+                               background: 'linear-gradient(to bottom, #22c55e 0%, #16a34a 50%, #15803d 100%)',
+                               transform: 'rotateZ(-12deg) rotateY(-10deg) translateZ(5px)',
+                               boxShadow: '2px 3px 8px rgba(0,0,0,0.6)',
+                             }}></div>
+                        <div className="absolute top-2 -right-2 w-2 h-8 rounded-sm"
+                             style={{
+                               background: 'linear-gradient(to bottom, #22c55e 0%, #16a34a 50%, #15803d 100%)',
+                               transform: 'rotateZ(12deg) rotateY(10deg) translateZ(5px)',
+                               boxShadow: '2px 3px 8px rgba(0,0,0,0.6)',
+                             }}></div>
                       </div>
                       
-                      {/* Тень */}
-                      <div className="absolute -bottom-1 left-0 right-0 h-2 bg-black/40 rounded-full blur-sm"
-                           style={{ transform: 'scaleX(1.5)' }}></div>
+                      {/* Тень 3D */}
+                      <div className="absolute -bottom-2 left-0 right-0 h-3 bg-black/50 rounded-full blur-md"
+                           style={{ 
+                             transform: 'translateZ(-10px) scaleX(2)',
+                             filter: 'blur(6px)',
+                           }}></div>
                     </div>
                   </div>
 
