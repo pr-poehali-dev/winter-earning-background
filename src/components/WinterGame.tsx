@@ -16,6 +16,29 @@ const WinterGame = () => {
   const [enemyAttacking, setEnemyAttacking] = useState(false);
   const [battleLog, setBattleLog] = useState<string[]>([]);
 
+  // Зомби Ферма
+  const [isNight, setIsNight] = useState(false);
+  const [zombiePosition, setZombiePosition] = useState({ x: 30, y: 50 });
+
+  // Смена дня и ночи каждые 10 секунд
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsNight(prev => !prev);
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Движение зомби
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setZombiePosition(prev => ({
+        x: Math.max(5, Math.min(90, prev.x + (Math.random() - 0.5) * 10)),
+        y: Math.max(20, Math.min(70, prev.y + (Math.random() - 0.5) * 10))
+      }));
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
 
 
 
@@ -214,94 +237,235 @@ const WinterGame = () => {
                 </div>
               </div>
 
-              {/* Море с волнами */}
-              <div className="absolute bottom-0 left-0 right-0 h-96 bg-gradient-to-b from-blue-400 via-blue-500 to-blue-600"
+              {/* ЗОМБИ ФЕРМА - Небо */}
+              <div className={`absolute inset-0 transition-all duration-2000 ${
+                isNight 
+                  ? 'bg-gradient-to-b from-indigo-950 via-purple-950 to-blue-900' 
+                  : 'bg-gradient-to-b from-sky-400 via-sky-300 to-blue-200'
+              }`}>
+                {/* Солнце/Луна */}
+                <div className={`absolute top-10 right-20 transition-all duration-2000 ${
+                  isNight ? 'opacity-0' : 'opacity-100'
+                }`}>
+                  <div className="w-24 h-24 bg-yellow-300 rounded-full shadow-2xl shadow-yellow-500/50 animate-pulse"></div>
+                </div>
+                <div className={`absolute top-10 right-20 transition-all duration-2000 ${
+                  isNight ? 'opacity-100' : 'opacity-0'
+                }`}>
+                  <div className="w-20 h-20 bg-gray-200 rounded-full shadow-2xl shadow-gray-400/50">
+                    <div className="absolute w-16 h-16 bg-gray-300 rounded-full top-2 left-2 opacity-50"></div>
+                  </div>
+                </div>
+
+                {/* Звезды ночью */}
+                {isNight && (
+                  <div className="absolute inset-0">
+                    {[...Array(50)].map((_, i) => (
+                      <div 
+                        key={i}
+                        className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
+                        style={{ 
+                          left: `${Math.random() * 100}%`, 
+                          top: `${Math.random() * 60}%`,
+                          animationDelay: `${Math.random() * 2}s`
+                        }}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Гора */}
+              <div className="absolute bottom-32 left-1/4 w-64 h-80"
+                   style={{ 
+                     perspective: '1500px',
+                     transformStyle: 'preserve-3d',
+                   }}>
+                {/* Основа горы */}
+                <div className="absolute bottom-0 left-0 right-0"
+                     style={{
+                       clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
+                       background: 'linear-gradient(135deg, #6B7280 0%, #4B5563 50%, #374151 100%)',
+                       height: '100%',
+                       transform: 'translateZ(20px)',
+                     }}>
+                  {/* Камни на горе */}
+                  {[...Array(15)].map((_, i) => (
+                    <div 
+                      key={i}
+                      className="absolute bg-gray-600 rounded"
+                      style={{ 
+                        left: `${30 + Math.random() * 40}%`, 
+                        top: `${20 + Math.random() * 70}%`,
+                        width: `${10 + Math.random() * 20}px`,
+                        height: `${10 + Math.random() * 20}px`,
+                        transform: `rotate(${Math.random() * 360}deg)`,
+                      }}
+                    />
+                  ))}
+                  
+                  {/* Трава на горе */}
+                  <div className="absolute bottom-0 left-0 right-0 h-12">
+                    {[...Array(20)].map((_, i) => (
+                      <div 
+                        key={i}
+                        className="absolute w-1 h-3 bg-green-500"
+                        style={{ 
+                          left: `${10 + i * 4}%`, 
+                          bottom: '0',
+                          transform: `rotate(${Math.random() * 30 - 15}deg)`,
+                        }}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Деревья на горе */}
+                  {[...Array(3)].map((_, i) => (
+                    <div 
+                      key={i}
+                      className="absolute"
+                      style={{ 
+                        left: `${25 + i * 20}%`, 
+                        top: `${40 + i * 10}%`,
+                      }}
+                    >
+                      {/* Ствол */}
+                      <div className="w-3 h-12 bg-amber-800 mx-auto"></div>
+                      {/* Крона */}
+                      <div className="absolute -top-6 -left-4 w-10 h-10 bg-green-700 rounded-full"></div>
+                      <div className="absolute -top-10 -left-3 w-8 h-8 bg-green-600 rounded-full"></div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Море */}
+              <div className="absolute bottom-32 left-0 right-0 h-64 bg-gradient-to-b from-blue-400 via-blue-500 to-blue-600"
                    style={{ 
                      perspective: '1000px',
                      transformStyle: 'preserve-3d',
+                     opacity: isNight ? 0.7 : 1,
                    }}>
                 {/* Волны */}
-                <div className="absolute top-0 left-0 right-0"
-                     style={{ transform: 'translateZ(10px)' }}>
+                <div className="absolute top-0 left-0 right-0" style={{ transform: 'translateZ(10px)' }}>
                   <svg width="100%" height="60" viewBox="0 0 1200 60" preserveAspectRatio="none">
                     <path d="M0,30 Q150,10 300,30 T600,30 T900,30 T1200,30 L1200,60 L0,60 Z" fill="#3B82F6" opacity="0.5" />
                   </svg>
                 </div>
-                <div className="absolute top-4 left-0 right-0"
-                     style={{ transform: 'translateZ(15px)' }}>
-                  <svg width="100%" height="50" viewBox="0 0 1200 50" preserveAspectRatio="none">
-                    <path d="M0,25 Q100,15 200,25 T400,25 T600,25 T800,25 T1000,25 T1200,25 L1200,50 L0,50 Z" fill="#60A5FA" opacity="0.4" />
-                  </svg>
-                </div>
-                <div className="absolute top-8 left-0 right-0"
-                     style={{ transform: 'translateZ(20px)' }}>
-                  <svg width="100%" height="40" viewBox="0 0 1200 40" preserveAspectRatio="none">
-                    <path d="M0,20 Q80,12 160,20 T320,20 T480,20 T640,20 T800,20 T960,20 T1200,20 L1200,40 L0,40 Z" fill="#93C5FD" opacity="0.3" />
-                  </svg>
-                </div>
               </div>
 
-              {/* Земля с берегом */}
+              {/* Песок */}
               <div className="absolute bottom-0 left-0 right-0 h-32"
                    style={{ 
                      perspective: '1200px',
                      transformStyle: 'preserve-3d',
                    }}>
-                {/* Песок на берегу */}
-                <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-yellow-200 via-yellow-300 to-yellow-400"
+                <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-yellow-200 via-yellow-300 to-yellow-400"
                      style={{ 
                        transform: 'translateZ(25px) rotateX(-2deg)',
                        transformOrigin: 'bottom',
                      }}>
                   {/* Текстура песка */}
-                  <div className="absolute inset-0 opacity-30">
-                    {[...Array(50)].map((_, i) => (
-                      <div 
-                        key={i}
-                        className="absolute w-1 h-1 bg-yellow-600 rounded-full"
-                        style={{ 
-                          left: `${Math.random() * 100}%`, 
-                          top: `${Math.random() * 100}%`,
-                        }}
-                      />
-                    ))}
-                  </div>
+                  {[...Array(40)].map((_, i) => (
+                    <div 
+                      key={i}
+                      className="absolute w-1 h-1 bg-yellow-600 rounded-full"
+                      style={{ 
+                        left: `${Math.random() * 100}%`, 
+                        top: `${Math.random() * 100}%`,
+                      }}
+                    />
+                  ))}
                 </div>
                 
-                {/* Земля */}
-                <div className="absolute top-12 left-0 right-0 h-20 bg-gradient-to-b from-green-600 via-green-700 to-green-800"
+                {/* Трава на земле */}
+                <div className="absolute top-16 left-0 right-0 h-16 bg-gradient-to-b from-green-600 via-green-700 to-green-800"
                      style={{ 
                        transform: 'translateZ(30px) rotateX(-3deg)',
                        transformOrigin: 'bottom',
                      }}>
                   {/* Трава */}
-                  <div className="absolute top-0 left-0 right-0 h-2 bg-green-500"></div>
                   <div className="absolute top-0 left-0 right-0">
-                    {[...Array(40)].map((_, i) => (
+                    {[...Array(50)].map((_, i) => (
                       <div 
                         key={i}
-                        className="absolute w-1 h-3 bg-green-400"
+                        className="absolute w-1 h-4 bg-green-400"
                         style={{ 
-                          left: `${i * 2.5}%`, 
-                          top: '-6px',
-                          transform: `rotate(${Math.random() * 20 - 10}deg) translateZ(2px)`,
+                          left: `${i * 2}%`, 
+                          top: '-8px',
+                          transform: `rotate(${Math.random() * 20 - 10}deg)`,
                         }}
                       />
                     ))}
                   </div>
-                  {/* Текстура земли */}
-                  <div className="absolute inset-0 opacity-20">
-                    {[...Array(30)].map((_, i) => (
-                      <div 
-                        key={i}
-                        className="absolute w-2 h-2 bg-amber-900 rounded-full"
-                        style={{ 
-                          left: `${Math.random() * 100}%`, 
-                          top: `${Math.random() * 100}%`,
-                        }}
-                      />
-                    ))}
+
+                  {/* Камни на земле */}
+                  {[...Array(10)].map((_, i) => (
+                    <div 
+                      key={i}
+                      className="absolute bg-gray-500 rounded"
+                      style={{ 
+                        left: `${Math.random() * 100}%`, 
+                        top: `${Math.random() * 100}%`,
+                        width: `${8 + Math.random() * 12}px`,
+                        height: `${6 + Math.random() * 10}px`,
+                      }}
+                    />
+                  ))}
+
+                  {/* Деревья */}
+                  {[...Array(4)].map((_, i) => (
+                    <div 
+                      key={i}
+                      className="absolute"
+                      style={{ 
+                        left: `${15 + i * 22}%`, 
+                        top: `-${20 + i * 5}px`,
+                      }}
+                    >
+                      {/* Ствол */}
+                      <div className="w-2 h-16 bg-amber-900 mx-auto"></div>
+                      {/* Крона */}
+                      <div className="absolute -top-8 -left-5 w-12 h-12 bg-green-700 rounded-full"></div>
+                      <div className="absolute -top-12 -left-4 w-10 h-10 bg-green-600 rounded-full"></div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* ЗОМБИ */}
+              <div 
+                className="absolute transition-all duration-2000 ease-in-out"
+                style={{ 
+                  left: `${zombiePosition.x}%`, 
+                  top: `${zombiePosition.y}%`,
+                  transform: 'translateZ(40px)',
+                }}
+              >
+                <div className="relative">
+                  {/* Тело зомби */}
+                  <div className="w-12 h-16 bg-green-500 rounded-lg relative"
+                       style={{
+                         boxShadow: isNight ? '0 0 20px rgba(34, 197, 94, 0.8)' : 'none'
+                       }}>
+                    {/* Голова */}
+                    <div className="absolute -top-8 left-1 w-10 h-10 bg-green-600 rounded-full">
+                      {/* Глаза */}
+                      <div className="absolute top-3 left-2 w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                      <div className="absolute top-3 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                      {/* Рот */}
+                      <div className="absolute bottom-2 left-2 right-2 h-1 bg-black rounded"></div>
+                    </div>
+                    {/* Руки */}
+                    <div className="absolute top-2 -left-3 w-3 h-8 bg-green-500 rounded transform -rotate-12"></div>
+                    <div className="absolute top-2 -right-3 w-3 h-8 bg-green-500 rounded transform rotate-12"></div>
                   </div>
+                  {/* Ноги */}
+                  <div className="absolute top-16 left-2 w-3 h-6 bg-green-600 rounded"></div>
+                  <div className="absolute top-16 right-2 w-3 h-6 bg-green-600 rounded"></div>
+                  
+                  {/* Тень */}
+                  <div className="absolute -bottom-2 left-0 right-0 h-2 bg-black/30 rounded-full blur-sm"></div>
                 </div>
               </div>
 
